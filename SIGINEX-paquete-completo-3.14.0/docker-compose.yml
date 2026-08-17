@@ -1,0 +1,37 @@
+# SIGINEX · Despliegue de referencia (PostgreSQL + API)
+# Uso:  docker compose up -d   ·   requiere un Dockerfile para el servicio api
+version: "3.9"
+
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: siginex
+      POSTGRES_USER: siginex
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-change-me}
+    ports:
+      - "5432:5432"
+    volumes:
+      - siginex_pgdata:/var/lib/postgresql/data
+      # Migración inicial: el DDL se aplica al crear el contenedor
+      - ./siginex-schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U siginex -d siginex"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://siginex:${DB_PASSWORD:-change-me}@db:5432/siginex
+      SIGINEX_API_KEYS: ${SIGINEX_API_KEYS:-demo-key}
+    command: uvicorn siginex_api:app --host 0.0.0.0 --port 8080
+    ports:
+      - "8080:8080"
+
+volumes:
+  siginex_pgdata:

@@ -1,0 +1,324 @@
+{
+  "skill": {
+    "name": "Normative_Knowledge_SGI",
+    "version": "1.0",
+    "pais": "Colombia",
+    "objetivo": "Construir una base de conocimiento que permita a un agente de IA evaluar el cumplimiento normativo empresarial en Colombia, analizando cada norma en requisitos obligatorios, controles, obligaciones e indicadores, y convirtiéndolos en preguntas de diagnóstico e indicadores de madurez.",
+    "salidas": ["requisitos_por_norma", "preguntas_diagnostico", "indicadores_madurez", "modelo_madurez", "mapa_diagnostico"],
+    "descargo": "Base orientativa. No sustituye una auditoría formal ni un concepto legal. Validar vigencia en la fuente oficial."
+  },
+
+  "rubrica_madurez": {
+    "descripcion": "Rúbrica genérica de 1 a 5 aplicable a toda pregunta de dimensión 'madurez'. Los descriptores por norma se derivan de ella.",
+    "niveles": {
+      "1": "Inicial: no existe o es reactivo/informal; sin evidencia.",
+      "2": "Básico: existe de forma parcial, sin formalizar ni medir.",
+      "3": "Gestionado: documentado e implementado bajo PHVA, con medición básica.",
+      "4": "Optimizado: medido, integrado a otros sistemas y con mejora continua.",
+      "5": "Excelencia: optimizado, referente sectorial, con innovación y aprendizaje."
+    }
+  },
+
+  "modelo_madurez": {
+    "descripcion": "Clasifica a la empresa por módulo y de forma global según el score consolidado (0-100).",
+    "niveles": [
+      {"n": 1, "nombre": "Inicial",     "rango": [0, 20],  "descripcion": "Procesos ausentes o reactivos; sin documentación ni responsables."},
+      {"n": 2, "nombre": "Básico",      "rango": [21, 40], "descripcion": "Elementos iniciales informales; cumplimiento parcial de lo obligatorio."},
+      {"n": 3, "nombre": "Gestionado",  "rango": [41, 60], "descripcion": "Sistema documentado e implementado bajo PHVA, con medición básica."},
+      {"n": 4, "nombre": "Optimizado",  "rango": [61, 80], "descripcion": "Medición sistemática, integración y mejora continua; listo para certificar."},
+      {"n": 5, "nombre": "Excelencia",  "rango": [81, 100],"descripcion": "SGI integrado a la estrategia, con benchmarking e innovación."}
+    ],
+    "escala_cumplimiento_sst": {
+      "descripcion": "Escala paralela para la dimensión obligatoria del SG-SST (Resolución 0312).",
+      "bandas": [{"rango": [0, 59.99], "etiqueta": "Crítico"}, {"rango": [60, 85], "etiqueta": "Moderadamente aceptable"}, {"rango": [85.01, 100], "etiqueta": "Aceptable"}]
+    }
+  },
+
+  "normas": [
+    {
+      "id": "ley_1562_2012", "norma": "Ley 1562 de 2012", "modulo_sgi": "sst", "tipo": "ley",
+      "url": "http://www.secretariasenado.gov.co/senado/basedoc/ley_1562_2012.html",
+      "requisitos_obligatorios": [
+        {"id": "l1562-r1", "texto": "Afiliación de los trabajadores al Sistema General de Riesgos Laborales (SGRL)."},
+        {"id": "l1562-r2", "texto": "Evolución del Programa de Salud Ocupacional al SG-SST."},
+        {"id": "l1562-r3", "texto": "Reporte de accidentes de trabajo y enfermedades laborales."}
+      ],
+      "controles_exigidos": ["Afiliación vigente a la ARL", "Reporte de siniestralidad a la ARL/entidades", "Régimen sancionatorio por incumplimiento"],
+      "obligaciones_empresariales": ["Afiliar y mantener afiliados a los trabajadores", "Garantizar la SST en el trabajo", "Reportar AT/EL en los plazos legales"],
+      "indicadores_cumplimiento": [
+        {"id": "l1562-i1", "nombre": "Cobertura de afiliación al SGRL", "formula": "trabajadores afiliados / total trabajadores * 100"},
+        {"id": "l1562-i2", "nombre": "Oportunidad de reporte de AT/EL", "formula": "reportes en plazo / total reportes * 100"}
+      ],
+      "preguntas_diagnostico": [
+        {"id": "l1562-q1", "tipo": "si_no", "dimension": "cumplimiento", "texto": "¿Todos los trabajadores están afiliados y vigentes en el Sistema General de Riesgos Laborales?", "requisito_ref": "l1562-r1", "peso": 1},
+        {"id": "l1562-q2", "tipo": "si_no", "dimension": "cumplimiento", "texto": "¿Reporta los accidentes de trabajo y enfermedades laborales en los plazos legales?", "requisito_ref": "l1562-r3", "peso": 1}
+      ]
+    },
+    {
+      "id": "decreto_1072_2015", "norma": "Decreto 1072 de 2015", "modulo_sgi": "sst", "tipo": "decreto",
+      "url": "https://www.funcionpublica.gov.co/eva/gestornormativo/norma.php?i=72173",
+      "requisitos_obligatorios": [
+        {"id": "d1072-r1", "texto": "Implementar el SG-SST bajo ciclo PHVA con política y objetivos firmados."},
+        {"id": "d1072-r2", "texto": "Designar responsable del SG-SST y asignar recursos."},
+        {"id": "d1072-r3", "texto": "Identificar peligros, evaluar y valorar riesgos (matriz IPER)."},
+        {"id": "d1072-r4", "texto": "Formular y ejecutar el plan de trabajo anual y conservar la documentación."}
+      ],
+      "controles_exigidos": ["Documentación del SG-SST", "Matriz de identificación de peligros (IPER)", "Plan de trabajo anual", "Gestión del cambio y rendición de cuentas"],
+      "obligaciones_empresariales": ["Definir política y objetivos de SST", "Capacitar y realizar exámenes médicos ocupacionales", "Investigar incidentes", "Auditoría interna anual y revisión por la alta dirección"],
+      "indicadores_cumplimiento": [
+        {"id": "d1072-i1", "nombre": "Ejecución del plan anual", "formula": "actividades ejecutadas / planificadas * 100"},
+        {"id": "d1072-i2", "nombre": "Frecuencia de accidentes de trabajo", "formula": "(N.º AT / horas-hombre trabajadas) * K"}
+      ],
+      "preguntas_diagnostico": [
+        {"id": "d1072-q1", "tipo": "si_no", "dimension": "cumplimiento", "texto": "¿La empresa cuenta con un SG-SST documentado y un responsable designado?", "requisito_ref": "d1072-r1", "peso": 1},
+        {"id": "d1072-q2", "tipo": "escala", "dimension": "madurez", "texto": "Madurez de la identificación de peligros y valoración de riesgos (matriz IPER).", "requisito_ref": "d1072-r3", "peso": 1},
+        {"id": "d1072-q3", "tipo": "escala", "dimension": "madurez", "texto": "Madurez del plan anual de trabajo, capacitación y exámenes médicos ocupacionales.", "requisito_ref": "d1072-r4", "peso": 1},
+        {"id": "d1072-q4", "tipo": "escala", "dimension": "madurez", "texto": "Madurez de la investigación de incidentes y de la revisión por la dirección.", "requisito_ref": "d1072-r4", "peso": 1}
+      ]
+    },
+    {
+      "id": "resolucion_0312_2019", "norma": "Resolución 0312 de 2019", "modulo_sgi": "sst", "tipo": "resolucion",
+      "url": "https://www.mintrabajo.gov.co/documents/20147/59995826/Resolucion+0312-2019-+Estandares+minimos+del+Sistema+de+la+Seguridad+y+Salud.pdf",
+      "requisitos_obligatorios": [
+        {"id": "r0312-r1", "texto": "Aplicar los estándares mínimos según tamaño y nivel de riesgo (7, 21 o 62)."},
+        {"id": "r0312-r2", "texto": "Realizar la autoevaluación anual y formular el plan de mejoramiento."},
+        {"id": "r0312-r3", "texto": "Registrar la autoevaluación en el aplicativo y remitir copia a la ARL."},
+        {"id": "r0312-r4", "texto": "Conformar el COPASST/Vigía y el Comité de Convivencia Laboral."}
+      ],
+      "controles_exigidos": ["Tabla de valores y calificación de estándares mínimos", "Autoevaluación y plan de mejora", "Registro en aplicativo del Fondo de Riesgos Laborales"],
+      "obligaciones_empresariales": ["Autoevaluarse en diciembre", "Formular plan de mejora y plan anual", "Registrar dentro del plazo anual", "Mantener evidencias"],
+      "indicadores_cumplimiento": [
+        {"id": "r0312-i1", "nombre": "Cumplimiento de estándares mínimos", "formula": "puntaje obtenido / puntaje máximo * 100", "bandas": "Crítico<60 · Moderadamente aceptable 60-85 · Aceptable>85"},
+        {"id": "r0312-i2", "nombre": "Avance del plan de mejoramiento", "formula": "acciones cerradas / acciones planificadas * 100"}
+      ],
+      "preguntas_diagnostico": [
+        {"id": "r0312-q1", "tipo": "si_no", "dimension": "cumplimiento", "texto": "¿Realizó la autoevaluación de estándares mínimos y su plan de mejora?", "requisito_ref": "r0312-r2", "peso": 1},
+        {"id": "r0312-q2", "tipo": "si_no", "dimension": "cumplimiento", "texto": "¿Están conformados el COPASST (o Vigía) y el Comité de Convivencia Laboral?", "requisito_ref": "r0312-r4", "peso": 1},
+        {"id": "r0312-q3", "tipo": "escala", "dimension": "madurez", "texto": "Madurez en la gestión y calificación de los estándares mínimos y sus indicadores.", "requisito_ref": "r0312-r1", "peso": 1}
+      ]
+    },
+    {
+      "id": "ley_99_1993", "norma": "Ley 99 de 1993", "modulo_sgi": "ambiental", "tipo": "ley",
+      "url": "http://www.secretariasenado.gov.co/senado/basedoc/ley_0099_1993.html",
+      "requisitos_obligatorios": [
+        {"id": "l99-r1", "texto": "Obtener licencia ambiental para proyectos, obras o actividades que la requieran."},
+        {"id": "l99-r2", "texto": "Cumplir principios de desarrollo sostenible y prevención de impactos."},
+        {"id": "l99-r3", "texto": "Pagar tasas retributivas y por uso de recursos naturales cuando apliquen."}
+      ],
+      "controles_exigidos": ["Licencia ambiental vigente", "Permisos ambientales aplicables", "Pago de tasas ambientales"],
+      "obligaciones_empresariales": ["Obtener licencia/permisos aplicables", "Prevenir y mitigar impactos", "Pagar tasas ambientales"],
+      "indicadores_cumplimiento": [
+        {"id": "l99-i1", "nombre": "Vigencia de licencias/permisos", "formula": "permisos vigentes / permisos requeridos * 100"}
+      ],
+      "preguntas_diagnostico": [
+        {"id": "l99-q1", "tipo": "si_no", "dimension": "cumplimiento", "texto": "¿Cuenta con la licencia ambiental y los permisos aplicables vigentes?", "requisito_ref": "l99-r1", "peso": 1}
+      ]
+    },
+    {
+      "id": "decreto_1076_2015", "norma": "Decreto 1076 de 2015", "modulo_sgi": "ambiental", "tipo": "decreto",
+      "url": "https://www.funcionpublica.gov.co/eva/gestornormativo/norma.php?i=78153",
+      "requisitos_obligatorios": [
+        {"id": "d1076-r1", "texto": "Tramitar permisos de vertimientos, emisiones, concesión de aguas y licenciamiento."},
+        {"id": "d1076-r2", "texto": "Gestionar los residuos peligrosos (RESPEL) con gestores autorizados."},
+        {"id": "d1076-r3", "texto": "Presentar registros y reportes ambientales aplicables."}
+      ],
+      "controles_exigidos": ["Permisos ambientales vigentes", "Plan de gestión integral de RESPEL", "Caracterizaciones y reportes a la autoridad"],
+      "obligaciones_empresariales": ["Tramitar y mantener permisos", "Disponer residuos con gestores autorizados", "Reportar a la autoridad ambiental"],
+      "indicadores_cumplimiento": [
+        {"id": "d1076-i1", "nombre": "RESPEL gestionado adecuadamente", "formula": "RESPEL entregado a gestor autorizado / RESPEL generado * 100"},
+        {"id": "d1076-i2", "nombre": "Uso eficiente de recursos", "formula": "consumo de agua/energía por unidad producida"}
+      ],
+      "preguntas_diagnostico": [
+        {"id": "d1076-q1", "tipo": "si_no", "dimension": "cumplimiento", "texto": "¿Cuenta con los permisos ambientales aplicables (vertimientos, emisiones, RESPEL)?", "requisito_ref": "d1076-r1", "peso": 1},
+        {"id": "d1076-q2", "tipo": "escala", "dimension": "madurez", "texto": "Madurez del programa de gestión de residuos y uso eficiente de agua y energía.", "requisito_ref": "d1076-r2", "peso": 1}
+      ]
+    },
+    {
+      "id": "resolucion_631_2015", "norma": "Resolución 631 de 2015", "modulo_sgi": "ambiental", "tipo": "resolucion",
+      "url": "https://www.minambiente.gov.co/normativa/resoluciones/",
+      "requisitos_obligatorios": [
+        {"id": "r631-r1", "texto": "Cumplir los límites máximos permisibles de vertimientos puntuales por actividad."},
+        {"id": "r631-r2", "texto": "Caracterizar los vertimientos con la periodicidad exigida."}
+      ],
+      "controles_exigidos": ["Caracterización analítica periódica", "Sistema de tratamiento cuando se exceden límites", "Reporte a la autoridad ambiental"],
+      "obligaciones_empresariales": ["Caracterizar y cumplir límites por parámetro", "Implementar tratamiento si excede", "Reportar resultados"],
+      "indicadores_cumplimiento": [
+        {"id": "r631-i1", "nombre": "Parámetros dentro de límite", "formula": "parámetros conformes / parámetros medidos * 100"}
+      ],
+      "preguntas_diagnostico": [
+        {"id": "r631-q1", "tipo": "si_no", "dimension": "cumplimiento", "texto": "Si genera vertimientos, ¿cumple los parámetros y límites máximos permisibles?", "requisito_ref": "r631-r1", "peso": 1}
+      ]
+    },
+    {
+      "id": "ley_1581_2012", "norma": "Ley 1581 de 2012", "modulo_sgi": "datos", "tipo": "ley",
+      "url": "http://www.secretariasenado.gov.co/senado/basedoc/ley_1581_2012.html",
+      "requisitos_obligatorios": [
+        {"id": "l1581-r1", "texto": "Adoptar y publicar la política de tratamiento de datos personales."},
+        {"id": "l1581-r2", "texto": "Obtener autorización del titular y disponer de aviso de privacidad."},
+        {"id": "l1581-r3", "texto": "Registrar las bases de datos en el RNBD ante la SIC cuando aplique."},
+        {"id": "l1581-r4", "texto": "Garantizar la seguridad de la información y atender consultas y reclamos."}
+      ],
+      "controles_exigidos": ["Política de tratamiento documentada", "Mecanismos de autorización", "Procedimiento de consultas y reclamos", "Medidas de seguridad", "Registro RNBD"],
+      "obligaciones_empresariales": ["Adoptar política y aviso de privacidad", "Obtener autorización del titular", "Registrar bases (RNBD)", "Garantizar seguridad y derechos del titular"],
+      "indicadores_cumplimiento": [
+        {"id": "l1581-i1", "nombre": "Bases registradas en RNBD", "formula": "bases registradas / bases con obligación * 100"},
+        {"id": "l1581-i2", "nombre": "Oportunidad en consultas/reclamos", "formula": "solicitudes atendidas en plazo / total * 100"}
+      ],
+      "preguntas_diagnostico": [
+        {"id": "l1581-q1", "tipo": "si_no", "dimension": "cumplimiento", "texto": "¿Cuenta con una política de tratamiento de datos personales adoptada y publicada?", "requisito_ref": "l1581-r1", "peso": 1},
+        {"id": "l1581-q2", "tipo": "si_no", "dimension": "cumplimiento", "texto": "Si aplica, ¿registró sus bases de datos en el RNBD ante la SIC?", "requisito_ref": "l1581-r3", "peso": 1},
+        {"id": "l1581-q3", "tipo": "si_no", "dimension": "cumplimiento", "texto": "¿Obtiene autorización del titular y dispone de aviso de privacidad?", "requisito_ref": "l1581-r2", "peso": 1},
+        {"id": "l1581-q4", "tipo": "escala", "dimension": "madurez", "texto": "Madurez en la gestión de los derechos de los titulares (consultas y reclamos).", "requisito_ref": "l1581-r4", "peso": 1}
+      ]
+    },
+    {
+      "id": "ley_1474_2011", "norma": "Ley 1474 de 2011", "modulo_sgi": "cumplimiento", "tipo": "ley",
+      "url": "http://www.secretariasenado.gov.co/senado/basedoc/ley_1474_2011.html",
+      "requisitos_obligatorios": [
+        {"id": "l1474-r1", "texto": "Adoptar medidas de prevención de la corrupción (art. 34: responsabilidad de personas jurídicas)."},
+        {"id": "l1474-r2", "texto": "Implementar controles y debida diligencia frente a actos de corrupción."}
+      ],
+      "controles_exigidos": ["Políticas anticorrupción", "Debida diligencia de terceros", "Canal de denuncias"],
+      "obligaciones_empresariales": ["Prevenir actos de corrupción", "Establecer controles", "Cooperar con investigaciones"],
+      "indicadores_cumplimiento": [
+        {"id": "l1474-i1", "nombre": "Debida diligencia de terceros", "formula": "terceros con debida diligencia / total terceros * 100"}
+      ],
+      "preguntas_diagnostico": [
+        {"id": "l1474-q1", "tipo": "si_no", "dimension": "cumplimiento", "texto": "¿Cuenta con políticas y controles anticorrupción formalizados?", "requisito_ref": "l1474-r1", "peso": 1}
+      ]
+    },
+    {
+      "id": "ley_2195_2022", "norma": "Ley 2195 de 2022", "modulo_sgi": "cumplimiento", "tipo": "ley",
+      "url": "http://www.secretariasenado.gov.co/senado/basedoc/ley_2195_2022.html",
+      "requisitos_obligatorios": [
+        {"id": "l2195-r1", "texto": "Implementar un Programa de Transparencia y Ética Empresarial (PTEE) si se es sujeto obligado."},
+        {"id": "l2195-r2", "texto": "Identificar y valorar los riesgos de corrupción y soborno transnacional."},
+        {"id": "l2195-r3", "texto": "Designar oficial de cumplimiento y habilitar canal de denuncias."}
+      ],
+      "controles_exigidos": ["PTEE documentado", "Matriz de riesgos de corrupción/soborno", "Oficial de cumplimiento", "Auditoría del programa"],
+      "obligaciones_empresariales": ["Implementar el PTEE cuando aplique", "Capacitar en ética", "Gestionar denuncias", "Reportar a la superintendencia"],
+      "indicadores_cumplimiento": [
+        {"id": "l2195-i1", "nombre": "Avance del PTEE", "formula": "componentes implementados / componentes exigidos * 100"},
+        {"id": "l2195-i2", "nombre": "Cobertura de capacitación en ética", "formula": "empleados capacitados / total * 100"}
+      ],
+      "preguntas_diagnostico": [
+        {"id": "l2195-q1", "tipo": "si_no", "dimension": "cumplimiento", "texto": "Si es sujeto obligado, ¿implementó un Programa de Transparencia y Ética Empresarial (PTEE)?", "requisito_ref": "l2195-r1", "peso": 1},
+        {"id": "l2195-q2", "tipo": "si_no", "dimension": "cumplimiento", "texto": "¿Cuenta con un canal de denuncias o línea ética confidencial y operativo?", "requisito_ref": "l2195-r3", "peso": 1},
+        {"id": "l2195-q3", "tipo": "escala", "dimension": "madurez", "texto": "Madurez en la gestión de conflictos de interés y políticas anticorrupción.", "requisito_ref": "l2195-r2", "peso": 1}
+      ]
+    },
+    {
+      "id": "iso_9001", "norma": "ISO 9001", "modulo_sgi": "calidad", "tipo": "norma_iso",
+      "url": "https://www.iso.org/iso-9001-quality-management.html",
+      "requisitos_obligatorios": [
+        {"id": "iso9-r1", "texto": "Definir política y objetivos de calidad y el enfoque basado en procesos (cap. 4-6)."},
+        {"id": "iso9-r2", "texto": "Evaluar el desempeño: satisfacción del cliente, auditorías internas y revisión por la dirección (cap. 9)."},
+        {"id": "iso9-r3", "texto": "Gestionar no conformidades y acciones correctivas (cap. 10)."}
+      ],
+      "controles_exigidos": ["Mapa e interacción de procesos", "Control de no conformidades", "Programa de auditorías internas", "Información documentada"],
+      "obligaciones_empresariales": ["Gestionar procesos", "Medir satisfacción del cliente", "Auditar y revisar", "Mejorar continuamente"],
+      "indicadores_cumplimiento": [
+        {"id": "iso9-i1", "nombre": "Satisfacción del cliente", "formula": "índice de satisfacción (encuestas)"},
+        {"id": "iso9-i2", "nombre": "No conformidades cerradas a tiempo", "formula": "NC cerradas en plazo / NC totales * 100"}
+      ],
+      "preguntas_diagnostico": [
+        {"id": "iso9-q1", "tipo": "si_no", "dimension": "cumplimiento", "texto": "¿Definió política y objetivos de calidad alineados con la estrategia?", "requisito_ref": "iso9-r1", "peso": 1},
+        {"id": "iso9-q2", "tipo": "si_no", "dimension": "cumplimiento", "texto": "¿Gestiona no conformidades con acciones correctivas y verificación de eficacia?", "requisito_ref": "iso9-r3", "peso": 1},
+        {"id": "iso9-q3", "tipo": "escala", "dimension": "madurez", "texto": "Madurez del enfoque a procesos, la satisfacción del cliente y las auditorías internas.", "requisito_ref": "iso9-r2", "peso": 1}
+      ]
+    },
+    {
+      "id": "iso_14001", "norma": "ISO 14001", "modulo_sgi": "ambiental", "tipo": "norma_iso",
+      "url": "https://www.iso.org/iso-14001-environmental-management.html",
+      "requisitos_obligatorios": [
+        {"id": "iso14-r1", "texto": "Identificar aspectos e impactos ambientales y los requisitos legales."},
+        {"id": "iso14-r2", "texto": "Establecer objetivos ambientales y control operacional."},
+        {"id": "iso14-r3", "texto": "Evaluar el cumplimiento legal y responder ante emergencias."}
+      ],
+      "controles_exigidos": ["Matriz de aspectos e impactos", "Evaluación de cumplimiento legal", "Control operacional", "Preparación ante emergencias"],
+      "obligaciones_empresariales": ["Identificar aspectos", "Cumplir requisitos legales", "Fijar objetivos", "Controlar la operación"],
+      "indicadores_cumplimiento": [
+        {"id": "iso14-i1", "nombre": "Cumplimiento legal ambiental", "formula": "requisitos cumplidos / requisitos aplicables * 100"}
+      ],
+      "preguntas_diagnostico": [
+        {"id": "iso14-q1", "tipo": "si_no", "dimension": "cumplimiento", "texto": "¿Identificó sus aspectos e impactos ambientales significativos?", "requisito_ref": "iso14-r1", "peso": 1},
+        {"id": "iso14-q2", "tipo": "escala", "dimension": "madurez", "texto": "Madurez del seguimiento al cumplimiento legal y de los objetivos ambientales.", "requisito_ref": "iso14-r3", "peso": 1}
+      ]
+    },
+    {
+      "id": "iso_45001", "norma": "ISO 45001", "modulo_sgi": "sst", "tipo": "norma_iso",
+      "url": "https://www.iso.org/iso-45001-occupational-health-and-safety.html",
+      "requisitos_obligatorios": [
+        {"id": "iso45-r1", "texto": "Garantizar la consulta y participación de los trabajadores."},
+        {"id": "iso45-r2", "texto": "Identificar peligros, evaluar riesgos y aplicar control operacional."},
+        {"id": "iso45-r3", "texto": "Investigar incidentes y mejorar continuamente."}
+      ],
+      "controles_exigidos": ["Matriz IPER", "Mecanismos de consulta y participación", "Control operacional", "Investigación de incidentes"],
+      "obligaciones_empresariales": ["Involucrar a los trabajadores", "Controlar riesgos", "Investigar incidentes", "Mejorar"],
+      "indicadores_cumplimiento": [
+        {"id": "iso45-i1", "nombre": "Severidad de accidentes de trabajo", "formula": "(días perdidos / horas-hombre) * K"}
+      ],
+      "preguntas_diagnostico": [
+        {"id": "iso45-q1", "tipo": "escala", "dimension": "madurez", "texto": "Madurez de la participación de los trabajadores y del control operacional en SST.", "requisito_ref": "iso45-r1", "peso": 1}
+      ]
+    },
+    {
+      "id": "iso_31000", "norma": "ISO 31000", "modulo_sgi": "riesgos", "tipo": "norma_iso",
+      "url": "https://www.iso.org/iso-31000-risk-management.html",
+      "requisitos_obligatorios": [
+        {"id": "iso31-r1", "texto": "Definir el marco y la metodología de gestión del riesgo."},
+        {"id": "iso31-r2", "texto": "Ejecutar el proceso: identificar, analizar, evaluar y tratar los riesgos."},
+        {"id": "iso31-r3", "texto": "Realizar seguimiento, revisión y reporte."}
+      ],
+      "controles_exigidos": ["Metodología de riesgos", "Matrices de riesgo por proceso", "Planes de tratamiento", "Monitoreo y reporte"],
+      "obligaciones_empresariales": ["Definir metodología", "Valorar riesgos", "Tratar riesgos", "Monitorear y reportar a la dirección"],
+      "indicadores_cumplimiento": [
+        {"id": "iso31-i1", "nombre": "Riesgos con control", "formula": "riesgos con control / riesgos identificados * 100"},
+        {"id": "iso31-i2", "nombre": "Tratamiento ejecutado", "formula": "planes ejecutados / planes definidos * 100"}
+      ],
+      "preguntas_diagnostico": [
+        {"id": "iso31-q1", "tipo": "si_no", "dimension": "cumplimiento", "texto": "¿Cuenta con una metodología de gestión de riesgos formalmente definida?", "requisito_ref": "iso31-r1", "peso": 1},
+        {"id": "iso31-q2", "tipo": "escala", "dimension": "madurez", "texto": "Madurez en la identificación, valoración, tratamiento y monitoreo de riesgos.", "requisito_ref": "iso31-r2", "peso": 1}
+      ]
+    },
+    {
+      "id": "iso_27001", "norma": "ISO 27001", "modulo_sgi": "datos", "tipo": "norma_iso",
+      "url": "https://www.iso.org/standard/27001",
+      "requisitos_obligatorios": [
+        {"id": "iso27-r1", "texto": "Establecer un SGSI con evaluación de riesgos de seguridad de la información."},
+        {"id": "iso27-r2", "texto": "Definir la declaración de aplicabilidad e implementar los controles del Anexo A."},
+        {"id": "iso27-r3", "texto": "Gestionar incidentes de seguridad y mejorar continuamente."}
+      ],
+      "controles_exigidos": ["Controles del Anexo A (organizacionales, personas, físicos, tecnológicos)", "Control de acceso", "Gestión de incidentes", "Continuidad de la información"],
+      "obligaciones_empresariales": ["Evaluar riesgos de información", "Implementar controles", "Gestionar incidentes", "Mejorar"],
+      "indicadores_cumplimiento": [
+        {"id": "iso27-i1", "nombre": "Controles implementados", "formula": "controles implementados / controles aplicables * 100"},
+        {"id": "iso27-i2", "nombre": "Respuesta a incidentes", "formula": "tiempo medio de detección y respuesta"}
+      ],
+      "preguntas_diagnostico": [
+        {"id": "iso27-q1", "tipo": "escala", "dimension": "madurez", "texto": "Madurez de los controles de seguridad de la información.", "requisito_ref": "iso27-r2", "peso": 1},
+        {"id": "iso27-q2", "tipo": "escala", "dimension": "madurez", "texto": "Madurez en la gestión y respuesta ante incidentes de seguridad.", "requisito_ref": "iso27-r3", "peso": 1}
+      ]
+    }
+  ],
+
+  "mapa_diagnostico": {
+    "descripcion": "Relación entre la base normativa y el diagnóstico SGI: cada módulo agrega los requisitos y preguntas de sus normas.",
+    "por_modulo": {
+      "sst":          {"normas": ["ley_1562_2012", "decreto_1072_2015", "resolucion_0312_2019", "iso_45001"], "peso": 0.18},
+      "ambiental":    {"normas": ["ley_99_1993", "decreto_1076_2015", "resolucion_631_2015", "iso_14001"], "peso": 0.13},
+      "calidad":      {"normas": ["iso_9001"], "peso": 0.13},
+      "riesgos":      {"normas": ["iso_31000"], "peso": 0.16},
+      "cumplimiento": {"normas": ["ley_1474_2011", "ley_2195_2022"], "peso": 0.16},
+      "datos":        {"normas": ["ley_1581_2012", "iso_27001"], "peso": 0.14},
+      "gobierno":     {"normas": ["ley_2195_2022"], "peso": 0.10, "nota": "El gobierno corporativo se evalúa con las normas de cumplimiento (Ley 2195) y prácticas de ética."}
+    },
+    "motor_scoring": {
+      "dimension_cumplimiento": "% de preguntas 'si_no' afirmativas (peso 40%).",
+      "dimension_madurez": "promedio de preguntas 'escala' 1-5 normalizado a 0-100 (peso 60%).",
+      "formula_modulo": "score = 0.4 * cumplimiento_pct + 0.6 * (madurez_promedio / 5 * 100)",
+      "formula_global": "score_sgi = Σ (score_modulo * peso_modulo)",
+      "regla_nivel": "El score (0-100) se mapea a modelo_madurez.niveles[].rango para clasificar Inicial → Excelencia."
+    }
+  }
+}

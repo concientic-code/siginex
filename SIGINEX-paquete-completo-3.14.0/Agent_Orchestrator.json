@@ -1,0 +1,59 @@
+{
+  "skill": {
+    "name": "Agent_Orchestrator",
+    "version": "1.0.0",
+    "objetivo": "Orquestar el diagnóstico del SGI de punta a punta: resolver aplicabilidad, ejecutar las skills de evaluación y los motores, y consolidar un contrato de salida único.",
+    "implementacion_referencia": "siginex_orchestrator.py (ejecutable sobre el banco de 500 preguntas).",
+    "descargo": "Resultado orientativo; no sustituye auditoría formal ni concepto legal."
+  },
+
+  "pipeline": [
+    {"paso": 1, "id": "resolver_aplicabilidad", "descripcion": "A partir del perfil (permAmbiental, saglaft, ptee, rnbd) determina qué preguntas aplican.", "entrada": "company.aplicabilidad + kb", "salida": "preguntas aplicables por módulo"},
+    {"paso": 2, "id": "scoring", "descripcion": "Cumplimiento 0/1/2 ponderado por pregunta y por módulo; nivel de madurez 1-5.", "motor": "Scoring"},
+    {"paso": 3, "id": "recomendaciones", "descripcion": "Por cada brecha (evaluación < 2) genera acción, prioridad y norma.", "motor": "Recomendaciones"},
+    {"paso": 4, "id": "plan_mejora", "descripcion": "Convierte brechas en tareas con responsable, prioridad, plazo, fase y criterio de cierre.", "motor": "Improvement_Plan_Generator"},
+    {"paso": 5, "id": "adopcion", "descripcion": "Asocia cada brecha a una ruta de aprendizaje interna (capa de aprendizaje de DQnexus).", "motor": "Adoption_Layer"},
+    {"paso": 6, "id": "benchmark", "descripcion": "Si se declara nivel tecnológico (1-5), calcula el scoring competitivo frente al mercado.", "motor": "Benchmark_SGI_Tools", "opcional": true},
+    {"paso": 7, "id": "consolidar", "descripcion": "Ensambla el contrato de salida único.", "salida": "resultado consolidado"},
+    {"paso": 8, "id": "alertas", "descripcion": "Emite alertas (p. ej. brechas de alta prioridad) para el motor de alertas / vigilancia.", "opcional": true}
+  ],
+
+  "resolver_aplicabilidad": {
+    "reglas": [
+      {"flag": "permAmbiental", "excluye_si_off": ["631", "vertimiento"]},
+      {"flag": "saglaft", "excluye_si_off": ["saglaft", "sarlaft", "supersociedades", "la/ft", "lavado"]},
+      {"flag": "ptee", "excluye_si_off": ["ptee"]},
+      {"flag": "rnbd", "excluye_si_off": ["rnbd"]}
+    ],
+    "match": "Palabra clave sobre norma + artículo + requisito + pregunta (minúsculas).",
+    "nota": "Las preguntas no aplicables se excluyen del scoring, del progreso y de brechas/plan/adopción."
+  },
+
+  "contrato_entrada": {
+    "company": {"nombre": "string", "sector": "string", "tamano": "string",
+                 "nivel_tecnologico": "1-5 (opcional)",
+                 "aplicabilidad": {"permAmbiental": "bool", "saglaft": "bool", "ptee": "bool", "rnbd": "bool"}},
+    "answers": "mapa pregunta_id -> 0|1|2|'na'",
+    "kb": "banco de conocimiento (modulos[].preguntas[])"
+  },
+
+  "contrato_salida": {
+    "kb_version": "string",
+    "organizacion": "datos de la empresa",
+    "aplicabilidad": "perfil resuelto",
+    "resultado": {"score_sgi": "number", "nivel_sgi": "{n,name}", "cumplimiento_global": "number",
+                   "por_modulo": "[{modulo,cumplimiento,nivel,respondidas,aplicables}]"},
+    "brechas": "[{modulo,pregunta_id,brecha,norma,evaluacion,prioridad}]",
+    "plan_mejora": "[{modulo,accion,responsable,prioridad,plazo_dias,fase,criterio_cierre}]",
+    "plan_aprendizaje": "[{competencia,modulo,nivel,brechas,origen}]",
+    "benchmark": "{nivel_empresa,promedio_mercado,rango_mercado,brecha_al_lider,recomendacion} | null",
+    "alertas": "[{tipo,severidad,titulo,detalle}]",
+    "meta": "{preguntas_aplicables,respondidas,generado_en}"
+  },
+
+  "integracion": {
+    "api": "POST /diagnosticos/{id}/calcular ejecuta este pipeline; los resultados se persisten en resultado_pilar, recomendacion, tarea_mejora y ruta_aprendizaje (DDL 1.1.1).",
+    "idempotencia": "El cálculo es determinista para un mismo (kb_version, answers, aplicabilidad).",
+    "versionado": "El contrato de salida incluye kb_version para reproducibilidad."
+  }
+}

@@ -1,0 +1,183 @@
+{
+ "componente": "SIGINEX · Benchmarking sectorial",
+ "version": "1.0.0",
+ "generado_en": "2026-08-17T20:47:06",
+ "nota": "Demostración con datos sintéticos; en producción usa diagnósticos persistidos.",
+ "muestra": {
+  "empresas": 60,
+  "sectores": [
+   "Servicios financieros",
+   "Tecnología / Software",
+   "Salud",
+   "Manufactura / Industria",
+   "Construcción"
+  ]
+ },
+ "por_sector": {
+  "Servicios financieros": {
+   "score": {
+    "n": 12,
+    "media": 72.58,
+    "mediana": 76.33,
+    "p25": 62.72,
+    "p75": 77.94,
+    "min": 55.61,
+    "max": 91.74
+   },
+   "por_modulo": {
+    "sst": 73.58,
+    "ambiental": 73.54,
+    "calidad": 71.64,
+    "riesgos": 72.33,
+    "cumplimiento": 70.24,
+    "datos": 70.33,
+    "gobierno": 74.2,
+    "esg": 74.58,
+    "gobernanza_ia": 73.11
+   }
+  },
+  "Tecnología / Software": {
+   "score": {
+    "n": 12,
+    "media": 75.38,
+    "mediana": 74.28,
+    "p25": 68.15,
+    "p75": 82.3,
+    "min": 64.32,
+    "max": 90.47
+   },
+   "por_modulo": {
+    "sst": 76.66,
+    "ambiental": 76.19,
+    "calidad": 74.57,
+    "riesgos": 72.35,
+    "cumplimiento": 75.82,
+    "datos": 74.6,
+    "gobierno": 76.22,
+    "esg": 74.58,
+    "gobernanza_ia": 77.65
+   }
+  },
+  "Salud": {
+   "score": {
+    "n": 12,
+    "media": 68.42,
+    "mediana": 67.21,
+    "p25": 58.85,
+    "p75": 76.09,
+    "min": 53.45,
+    "max": 93.86
+   },
+   "por_modulo": {
+    "sst": 68.64,
+    "ambiental": 70.27,
+    "calidad": 68.47,
+    "riesgos": 65.2,
+    "cumplimiento": 70.34,
+    "datos": 68.76,
+    "gobierno": 66.57,
+    "esg": 66.25,
+    "gobernanza_ia": 71.59
+   }
+  },
+  "Manufactura / Industria": {
+   "score": {
+    "n": 12,
+    "media": 65.5,
+    "mediana": 64.66,
+    "p25": 60.84,
+    "p75": 70.22,
+    "min": 48.3,
+    "max": 83.69
+   },
+   "por_modulo": {
+    "sst": 65.29,
+    "ambiental": 65.88,
+    "calidad": 63.87,
+    "riesgos": 67.66,
+    "cumplimiento": 66.13,
+    "datos": 67.22,
+    "gobierno": 64.65,
+    "esg": 65.0,
+    "gobernanza_ia": 62.88
+   }
+  },
+  "Construcción": {
+   "score": {
+    "n": 12,
+    "media": 55.22,
+    "mediana": 54.08,
+    "p25": 49.7,
+    "p75": 61.26,
+    "min": 43.49,
+    "max": 68.55
+   },
+   "por_modulo": {
+    "sst": 56.33,
+    "ambiental": 56.93,
+    "calidad": 53.36,
+    "riesgos": 55.78,
+    "cumplimiento": 55.25,
+    "datos": 55.38,
+    "gobierno": 60.72,
+    "esg": 53.75,
+    "gobernanza_ia": 48.87
+   }
+  }
+ },
+ "posicionamiento_ejemplo": {
+  "empresa": "Servicios fi-899",
+  "sector": "Servicios financieros",
+  "score": 77.48,
+  "percentil_en_sector": 66.7,
+  "media_sector": 72.58,
+  "delta_vs_media_sector": 4.9,
+  "por_modulo": {
+   "sst": {
+    "empresa": 81.88,
+    "media_sector": 73.58,
+    "delta": 8.3
+   },
+   "ambiental": {
+    "empresa": 71.36,
+    "media_sector": 73.54,
+    "delta": -2.18
+   },
+   "calidad": {
+    "empresa": 75.0,
+    "media_sector": 71.64,
+    "delta": 3.36
+   },
+   "riesgos": {
+    "empresa": 70.87,
+    "media_sector": 72.33,
+    "delta": -1.46
+   },
+   "cumplimiento": {
+    "empresa": 62.14,
+    "media_sector": 70.24,
+    "delta": -8.1
+   },
+   "datos": {
+    "empresa": 82.84,
+    "media_sector": 70.33,
+    "delta": 12.51
+   },
+   "gobierno": {
+    "empresa": 79.21,
+    "media_sector": 74.2,
+    "delta": 5.01
+   },
+   "esg": {
+    "empresa": 100.0,
+    "media_sector": 74.58,
+    "delta": 25.42
+   },
+   "gobernanza_ia": {
+    "empresa": 72.73,
+    "media_sector": 73.11,
+    "delta": -0.38
+   }
+  }
+ }
+}

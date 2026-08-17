@@ -1,0 +1,67 @@
+{
+ "componente": "SIGINEX · Evals y observabilidad",
+ "version": "1.0.0",
+ "generado_en": "2026-08-17T20:47:02",
+ "kb": {
+  "modulos": 9,
+  "preguntas": 521
+ },
+ "metricas_observabilidad": {
+  "latencia_diagnostico_ms": 5.8
+ },
+ "resumen": {
+  "superadas": 8,
+  "total": 8,
+  "tasa": 1.0
+ },
+ "evals": [
+  {
+   "id": "determinismo",
+   "nombre": "Mismo input → mismo output",
+   "passed": true,
+   "detalle": "score 50.0 == 50.0"
+  },
+  {
+   "id": "fronteras",
+   "nombre": "Fronteras del scoring 0/50/100",
+   "passed": true,
+   "detalle": "all-0=0.0 · all-1=50.0 · all-2=100.0"
+  },
+  {
+   "id": "monotonicidad",
+   "nombre": "Mejorar respuestas nunca baja el score",
+   "passed": true,
+   "detalle": "base=0.0 → mejorado=23.0"
+  },
+  {
+   "id": "aplicabilidad",
+   "nombre": "Los toggles condicionan preguntas",
+   "passed": true,
+   "detalle": "aplican(on)=521 · aplican(off)=487 · condicionadas=34 · por_flag={'permAmbiental': 8, 'saglaft': 11, 'ptee': 12, 'rnbd': 3}"
+  },
+  {
+   "id": "plan_cobertura",
+   "nombre": "Una tarea por brecha, con campos completos",
+   "passed": true,
+   "detalle": "brechas=348 · tareas=348 · campos_completos=True"
+  },
+  {
+   "id": "adopcion",
+   "nombre": "Rutas de aprendizaje internas y bien formadas",
+   "passed": true,
+   "detalle": "rutas=25 · todas_internas=True"
+  },
+  {
+   "id": "niveles",
+   "nombre": "Mapeo score→nivel monotónico",
+   "passed": true,
+   "detalle": "niveles=[1, 2, 3, 4, 5]"
+  },
+  {
+   "id": "contrato",
+   "nombre": "Contrato de salida íntegro",
+   "passed": true,
+   "detalle": "faltan=[] · modulos=9/9"
+  }
+ ]
+}

@@ -1,0 +1,69 @@
+{
+  "skill": {
+    "name": "ESG_AI_Governance_Skills",
+    "version": "1.0.0",
+    "pais": "Colombia",
+    "objetivo": "Evaluar la madurez de la organización en Sostenibilidad/ESG y en Gobernanza de la Inteligencia Artificial, ampliando la cobertura del SGI hacia dos frentes emergentes de alto crecimiento.",
+    "escala": "0/1/2 (No cumple · Parcial · Cumple)",
+    "contexto_colombia": "Las NIIF S1/S2 del ISSB (junio 2023, vigentes internacionalmente desde ene-2024) son de aplicación voluntaria en Colombia y aún no se adoptan de forma obligatoria; mientras tanto rigen la Circular Externa 031/2021 de la SFC (vigente desde 2024, para emisores del RNVE, alineada a TCFD y SASB), el Informe 08 de Sostenibilidad de la Superintendencia de Sociedades (voluntario, vía XBRL Express) y la Circular Externa 015/2025 de la SFC sobre gestión de riesgos ambientales, sociales y climáticos en vigiladas. ISO/IEC 42001:2023 es la primera norma certificable de gestión de IA.",
+    "honestidad": "Las preguntas se derivan de la estructura de los marcos citados; son una base representativa (no exhaustiva) para autodiagnóstico y deben validarse con un experto. Resultado orientativo.",
+    "descargo": "No sustituye auditoría, aseguramiento ni concepto legal."
+  },
+
+  "dominios": [
+    {
+      "id": "esg",
+      "nombre": "Sostenibilidad / ESG",
+      "marcos": ["ISSB NIIF S1 (requisitos generales)", "ISSB NIIF S2 (clima)", "GRI", "SASB", "TCFD", "ISO 26000", "SFC Circular Externa 031/2021", "SFC Circular Externa 015/2025", "Supersociedades Circular 100-000002/2025 (Informe 08)", "Taxonomía Verde de Colombia"],
+      "pilares": ["Gobernanza", "Estrategia", "Gestión de riesgos", "Métricas y objetivos"],
+      "preguntas": [
+        {"id": "esg-1.1", "pilar": "Gobernanza", "pregunta": "¿La junta directiva o alta dirección tiene asignada formalmente la responsabilidad sobre los asuntos de sostenibilidad y clima?", "requisito": "Gobernanza (NIIF S1/S2)", "norma": "ISSB NIIF S1", "recomendacion": {"0": "Asigne en la junta/alta dirección la responsabilidad y supervisión de los temas ESG y climáticos.", "1": "Formalice la periodicidad y los mecanismos de supervisión de la junta sobre sostenibilidad."}},
+        {"id": "esg-1.2", "pilar": "Gobernanza", "pregunta": "¿Existe una política de sostenibilidad aprobada, documentada y comunicada?", "requisito": "Políticas ESG", "norma": "ISO 26000 / GRI", "recomendacion": {"0": "Formule y apruebe una política de sostenibilidad alineada a la estrategia.", "1": "Comunique y despliegue la política en toda la organización."}},
+        {"id": "esg-2.1", "pilar": "Estrategia", "pregunta": "¿Se realizó un análisis de materialidad para identificar los asuntos ESG y climáticos relevantes para el negocio?", "requisito": "Materialidad financiera (NIIF S1)", "norma": "ISSB NIIF S1", "recomendacion": {"0": "Realice un análisis de materialidad de asuntos ESG con los grupos de interés.", "1": "Actualice la materialidad y priorice los asuntos con impacto financiero."}},
+        {"id": "esg-2.2", "pilar": "Estrategia", "pregunta": "¿Se analizó la resiliencia de la estrategia frente a escenarios climáticos (riesgos físicos y de transición)?", "requisito": "Estrategia y resiliencia climática (NIIF S2)", "norma": "ISSB NIIF S2 / TCFD", "recomendacion": {"0": "Evalúe riesgos físicos y de transición y su efecto en la estrategia.", "1": "Formalice el análisis de escenarios y su revisión periódica."}},
+        {"id": "esg-3.1", "pilar": "Gestión de riesgos", "pregunta": "¿Los riesgos ambientales, sociales y climáticos están integrados en la gestión de riesgos corporativa?", "requisito": "Gestión de riesgos ASG", "norma": "SFC Circular Externa 015/2025", "recomendacion": {"0": "Integre los riesgos ASG y climáticos en el sistema de gestión de riesgos.", "1": "Cuantifique y monitoree los riesgos ASG con indicadores y responsables."}},
+        {"id": "esg-4.1", "pilar": "Métricas y objetivos", "pregunta": "¿Se miden y reportan las emisiones de gases de efecto invernadero en los alcances 1 y 2 (y 3 cuando sea material)?", "requisito": "Métricas climáticas (NIIF S2)", "norma": "ISSB NIIF S2", "recomendacion": {"0": "Levante el inventario de emisiones GEI de alcances 1 y 2.", "1": "Amplíe al alcance 3 material y verifique la medición."}},
+        {"id": "esg-4.2", "pilar": "Métricas y objetivos", "pregunta": "¿Existen metas cuantificables de sostenibilidad con seguimiento periódico?", "requisito": "Objetivos y metas", "norma": "ISSB NIIF S1 / GRI", "recomendacion": {"0": "Defina metas ESG cuantificables con línea base y plazo.", "1": "Formalice el seguimiento y la rendición de cuentas de las metas."}},
+        {"id": "esg-4.3", "pilar": "Métricas y objetivos", "pregunta": "¿La empresa divulga un reporte de sostenibilidad bajo un estándar reconocido (GRI, SASB o NIIF S1/S2)?", "requisito": "Divulgación", "norma": "GRI / SASB / ISSB", "recomendacion": {"0": "Publique un reporte de sostenibilidad bajo un estándar reconocido.", "1": "Avance hacia la convergencia con NIIF S1/S2 y su aseguramiento."}},
+        {"id": "esg-5.1", "pilar": "Social", "pregunta": "¿Se gestionan indicadores sociales (diversidad, seguridad y salud, cadena de suministro, derechos humanos)?", "requisito": "Dimensión social", "norma": "GRI / ISO 26000", "recomendacion": {"0": "Defina y mida indicadores sociales clave.", "1": "Integre debida diligencia en derechos humanos y cadena de suministro."}},
+        {"id": "esg-6.1", "pilar": "Cumplimiento", "pregunta": "Para emisores del mercado de valores: ¿se incluye el capítulo de sostenibilidad exigido por la Circular Externa 031/2021 de la SFC?", "requisito": "Divulgación regulada (emisores RNVE)", "norma": "SFC Circular Externa 031/2021", "recomendacion": {"0": "Incorpore el capítulo de sostenibilidad conforme a la Circular 031/2021.", "1": "Fortalezca la trazabilidad y verificación de la información divulgada."}}
+      ]
+    },
+
+    {
+      "id": "gobernanza_ia",
+      "nombre": "Gobernanza de la Inteligencia Artificial (ISO/IEC 42001)",
+      "marcos": ["ISO/IEC 42001:2023 (AIMS)", "ISO/IEC 23894 (gestión de riesgos de IA)", "NIST AI RMF (Govern, Map, Measure, Manage)", "EU AI Act (Reglamento UE 2024/1689)", "OWASP Top 10 for LLM", "MITRE ATLAS"],
+      "clausulas": ["Contexto", "Liderazgo y política de IA", "Planificación y riesgos (cl. 6)", "Soporte y competencias", "Operación (ciclo de vida)", "Evaluación del desempeño", "Mejora", "Anexo A (controles)"],
+      "preguntas": [
+        {"id": "ia-1.1", "clausula": "Liderazgo", "pregunta": "¿Existe una política de IA aprobada por la dirección que establezca principios éticos y objetivos?", "requisito": "Política de IA", "norma": "ISO 42001 · Anexo A (políticas de IA)", "recomendacion": {"0": "Defina y apruebe una política de IA con principios éticos y objetivos.", "1": "Comunique la política y alinéela con la estrategia y el riesgo."}},
+        {"id": "ia-1.2", "clausula": "Organización interna", "pregunta": "¿Están definidos los roles y la rendición de cuentas para la gobernanza de la IA?", "requisito": "Roles y responsabilidades", "norma": "ISO 42001 · Anexo A (organización interna)", "recomendacion": {"0": "Asigne roles y responsabilidades claros para la gobernanza de la IA.", "1": "Formalice la rendición de cuentas y los comités de decisión."}},
+        {"id": "ia-2.1", "clausula": "Planificación", "pregunta": "¿Se realizan evaluaciones de impacto de los sistemas de IA (AIA) sobre las personas y la sociedad?", "requisito": "Evaluación de impacto de IA", "norma": "ISO 42001 · cl. 6 / Anexo A", "recomendacion": {"0": "Implemente evaluaciones de impacto (AIA) antes de desplegar sistemas de IA.", "1": "Estandarice la AIA y su revisión a lo largo del ciclo de vida."}},
+        {"id": "ia-2.2", "clausula": "Riesgos", "pregunta": "¿Se gestionan los riesgos de la IA a lo largo de su ciclo de vida?", "requisito": "Gestión de riesgos de IA", "norma": "ISO 42001 cl.6 / ISO 23894 / NIST AI RMF", "recomendacion": {"0": "Establezca un proceso de gestión de riesgos de IA (identificar, medir, tratar).", "1": "Integre las funciones Govern/Map/Measure/Manage del NIST AI RMF."}},
+        {"id": "ia-3.1", "clausula": "Datos", "pregunta": "¿Se gobiernan la procedencia, calidad y representatividad de los datos para prevenir sesgos?", "requisito": "Gobernanza de datos para IA", "norma": "ISO 42001 · Anexo A (datos para IA)", "recomendacion": {"0": "Defina controles de procedencia, calidad y representatividad de datos.", "1": "Implemente pruebas de sesgo y trazabilidad del linaje de datos."}},
+        {"id": "ia-4.1", "clausula": "Transparencia", "pregunta": "¿Los sistemas de IA son transparentes y explicables para las partes interesadas?", "requisito": "Transparencia y explicabilidad", "norma": "ISO 42001 · Anexo A (información a partes interesadas)", "recomendacion": {"0": "Documente el propósito, límites y lógica de los sistemas de IA.", "1": "Provea explicaciones comprensibles a usuarios y afectados."}},
+        {"id": "ia-4.2", "clausula": "Supervisión humana", "pregunta": "¿Existe supervisión humana significativa sobre las decisiones de la IA?", "requisito": "Human oversight", "norma": "ISO 42001 / EU AI Act", "recomendacion": {"0": "Establezca puntos de control humano en decisiones de alto impacto.", "1": "Formalice criterios de intervención y anulación humana."}},
+        {"id": "ia-5.1", "clausula": "Seguridad", "pregunta": "¿Se abordan riesgos de seguridad específicos de IA (p. ej. inyección de prompts, fuga de datos)?", "requisito": "Seguridad de sistemas de IA", "norma": "OWASP Top 10 LLM / MITRE ATLAS", "recomendacion": {"0": "Evalúe amenazas específicas de IA/LLM y aplique controles.", "1": "Integre pruebas adversariales y monitoreo continuo."}},
+        {"id": "ia-6.1", "clausula": "Competencias", "pregunta": "¿El personal que trabaja con IA cuenta con la formación y los recursos adecuados?", "requisito": "Competencia y recursos", "norma": "ISO 42001 · cl. 7", "recomendacion": {"0": "Defina competencias necesarias y capacite al personal de IA.", "1": "Sostenga un plan de formación continua en gobernanza de IA."}},
+        {"id": "ia-7.1", "clausula": "Mejora", "pregunta": "¿Se auditan y mejoran continuamente los sistemas de gestión de IA?", "requisito": "Auditoría y mejora continua", "norma": "ISO 42001 · cl. 9-10", "recomendacion": {"0": "Programe auditorías internas del sistema de gestión de IA.", "1": "Cierre no conformidades y gestione acciones de mejora."}},
+        {"id": "ia-8.1", "clausula": "Cumplimiento", "pregunta": "¿Se monitorea el cumplimiento con marcos regulatorios de IA aplicables (p. ej. EU AI Act)?", "requisito": "Cumplimiento regulatorio de IA", "norma": "EU AI Act (Reg. UE 2024/1689)", "recomendacion": {"0": "Identifique las obligaciones regulatorias de IA aplicables a su operación.", "1": "Establezca vigilancia regulatoria y evidencias de cumplimiento."}}
+      ]
+    }
+  ],
+
+  "modelo_madurez": {
+    "niveles": [
+      {"n": 1, "nombre": "Inicial", "rango": "0-20%", "desc": "Sin gestión formal; acciones aisladas."},
+      {"n": 2, "nombre": "Básico", "rango": "21-40%", "desc": "Políticas iniciales, sin despliegue."},
+      {"n": 3, "nombre": "En desarrollo", "rango": "41-60%", "desc": "Procesos definidos, evidencia parcial."},
+      {"n": 4, "nombre": "Optimizado", "rango": "61-80%", "desc": "Medición, integración y mejora."},
+      {"n": 5, "nombre": "Excelencia", "rango": "81-100%", "desc": "Gestión madura, verificada y en mejora continua."}
+    ]
+  },
+
+  "integracion": {
+    "sgi": "Se incorpora como dos módulos evaluables del SGI (Sostenibilidad/ESG y Gobernanza de IA), consumibles por el orquestador con la misma escala 0/1/2.",
+    "vigilancia": "ISO 42001 y las NIIF S1/S2 se monitorean por la capa de vigilancia normativa; su relevancia fue señalada por la vigilancia de mercado (ISO 42001 como certificación de mayor crecimiento en 2026).",
+    "artefacto": "Pendiente: integrar ambos módulos al banco del artefacto (reponderando los pesos por módulo)."
+  }
+}

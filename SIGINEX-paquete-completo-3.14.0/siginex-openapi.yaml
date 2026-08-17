@@ -1,0 +1,613 @@
+openapi: 3.1.0
+info:
+  title: SIGINEX — API de Diagnóstico del SGI
+  version: 1.1.2
+  description: >
+    Contrato de la API de diagnóstico del Sistema Inteligente de Gestión Integral (SIGINEX),
+    consumible por DQnexus. Expone la creación y consulta de diagnósticos,
+    resultados por pilar, recomendaciones, rutas de aprendizaje y el feed de vigilancia
+    normativa. Los resultados son orientativos y no sustituyen auditoría formal ni concepto legal.
+servers:
+  - url: https://api.dqnexus.io/siginex/v1
+    description: Producción
+  - url: https://sandbox.api.dqnexus.io/siginex/v1
+    description: Sandbox
+
+security:
+  - oauth2ClientCredentials: []
+  - apiKey: []
+
+tags:
+  - name: Organizaciones
+  - name: Diagnósticos
+  - name: Resultados
+  - name: Vigilancia
+  - name: Meta
+
+paths:
+  /organizaciones:
+    post:
+      tags: [Organizaciones]
+      summary: Crear una organización a diagnosticar
+      operationId: crearOrganizacion
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/OrganizacionInput' }
+      responses:
+        '201':
+          description: Organización creada
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Organizacion' }
+        '400': { $ref: '#/components/responses/Error' }
+        '401': { $ref: '#/components/responses/Error' }
+  /organizaciones/{organizacionId}:
+    get:
+      tags: [Organizaciones]
+      summary: Obtener una organización
+      operationId: obtenerOrganizacion
+      parameters:
+        - $ref: '#/components/parameters/OrganizacionId'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Organizacion' }
+        '404': { $ref: '#/components/responses/Error' }
+
+  /diagnosticos:
+    post:
+      tags: [Diagnósticos]
+      summary: Iniciar un diagnóstico
+      description: Crea un diagnóstico para una organización. El motor resuelve la aplicabilidad de las skills según el perfil.
+      operationId: crearDiagnostico
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/DiagnosticoInput' }
+      responses:
+        '201':
+          description: Diagnóstico creado (estado en_progreso)
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Diagnostico' }
+        '400': { $ref: '#/components/responses/Error' }
+    get:
+      tags: [Diagnósticos]
+      summary: Listar diagnósticos
+      operationId: listarDiagnosticos
+      parameters:
+        - name: organizacionId
+          in: query
+          schema: { type: string, format: uuid }
+        - $ref: '#/components/parameters/Cursor'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items: { $ref: '#/components/schemas/Diagnostico' }
+                  next_cursor: { type: string, nullable: true }
+
+  /diagnosticos/{diagnosticoId}:
+    get:
+      tags: [Diagnósticos]
+      summary: Obtener un diagnóstico
+      operationId: obtenerDiagnostico
+      parameters:
+        - $ref: '#/components/parameters/DiagnosticoId'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Diagnostico' }
+        '404': { $ref: '#/components/responses/Error' }
+
+  /diagnosticos/{diagnosticoId}/respuestas:
+    put:
+      tags: [Diagnósticos]
+      summary: Registrar o actualizar respuestas (lote)
+      description: Envía respuestas del banco de preguntas. Idempotente por pregunta_id; reenviar sobrescribe.
+      operationId: registrarRespuestas
+      parameters:
+        - $ref: '#/components/parameters/DiagnosticoId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [respuestas]
+              properties:
+                respuestas:
+                  type: array
+                  items: { $ref: '#/components/schemas/RespuestaInput' }
+      responses:
+        '200':
+          description: Respuestas registradas; devuelve el progreso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  diagnostico_id: { type: string, format: uuid }
+                  total_preguntas: { type: integer }
+                  respondidas: { type: integer }
+                  progreso_pct: { type: number }
+        '404': { $ref: '#/components/responses/Error' }
+        '422': { $ref: '#/components/responses/Error' }
+
+  /diagnosticos/{diagnosticoId}/calcular:
+    post:
+      tags: [Resultados]
+      summary: Calcular el diagnóstico
+      description: Ejecuta el motor de scoring y recomendaciones sobre las respuestas registradas y cierra el diagnóstico.
+      operationId: calcularDiagnostico
+      parameters:
+        - $ref: '#/components/parameters/DiagnosticoId'
+      responses:
+        '200':
+          description: Diagnóstico calculado
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ResultadoDiagnostico' }
+        '409':
+          description: Diagnóstico incompleto (si se exige completitud)
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+
+  /diagnosticos/{diagnosticoId}/resultados:
+    get:
+      tags: [Resultados]
+      summary: Obtener resultados consolidados
+      operationId: obtenerResultados
+      parameters:
+        - $ref: '#/components/parameters/DiagnosticoId'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ResultadoDiagnostico' }
+
+  /diagnosticos/{diagnosticoId}/recomendaciones:
+    get:
+      tags: [Resultados]
+      summary: Obtener recomendaciones priorizadas
+      operationId: obtenerRecomendaciones
+      parameters:
+        - $ref: '#/components/parameters/DiagnosticoId'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/Recomendacion' }
+
+  /diagnosticos/{diagnosticoId}/rutas-aprendizaje:
+    get:
+      tags: [Resultados]
+      summary: Rutas de aprendizaje sugeridas (capa de aprendizaje de DQnexus)
+      description: Deriva de las recomendaciones las rutas de capacitación asociadas a cada brecha.
+      operationId: obtenerRutasAprendizaje
+      parameters:
+        - $ref: '#/components/parameters/DiagnosticoId'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/RutaAprendizaje' }
+
+  /normativa:
+    get:
+      tags: [Vigilancia]
+      summary: Feed de vigilancia normativa
+      description: Entradas normativas clasificadas por módulo del SGI (alimentadas por el agente de vigilancia).
+      operationId: listarNormativa
+      parameters:
+        - name: modulo_sgi
+          in: query
+          schema:
+            type: string
+            enum: [sst, calidad, ambiental, cumplimiento, riesgos, gobierno]
+        - name: estado
+          in: query
+          schema: { type: string, enum: [vigente, nuevo, modifica, derogado] }
+        - name: desde
+          in: query
+          schema: { type: string, format: date }
+        - $ref: '#/components/parameters/Cursor'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items: { $ref: '#/components/schemas/NormativaEntry' }
+                  next_cursor: { type: string, nullable: true }
+
+  /meta/kb-version:
+    get:
+      tags: [Meta]
+      summary: Versión vigente de la base de conocimiento
+      operationId: obtenerKbVersion
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/KbVersion' }
+
+  /kb:
+    get:
+      tags: [Meta]
+      summary: Servir el banco de conocimiento vigente
+      description: Devuelve el banco de preguntas (500), pesos y modelo de madurez para hidratar el artefacto. Cacheable por ETag.
+      operationId: obtenerKb
+      security:
+        - oauth2ClientCredentials: [kb:read]
+        - apiKey: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            ETag: { schema: { type: string } }
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/KbBundle' }
+
+  /market-signals:
+    get:
+      tags: [Vigilancia]
+      summary: Feed de vigilancia de mercado
+      description: Señales de mercado y competencia (Benchmark_Market_Watch), filtrables por impacto y fecha.
+      operationId: listarMarketSignals
+      parameters:
+        - name: impacto
+          in: query
+          schema: { type: string, enum: [alto, medio, bajo] }
+        - name: desde
+          in: query
+          schema: { type: string, format: date }
+        - $ref: '#/components/parameters/Cursor'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items: { $ref: '#/components/schemas/MarketSignal' }
+                  next_cursor: { type: string, nullable: true }
+
+  /diagnosticos/{diagnosticoId}/benchmark:
+    post:
+      tags: [Resultados]
+      summary: Registrar nivel tecnológico y comparar con el mercado
+      description: Registra el nivel tecnológico (1–5) de la empresa y devuelve el scoring competitivo frente al mercado.
+      operationId: compararBenchmark
+      parameters:
+        - $ref: '#/components/parameters/DiagnosticoId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/BenchmarkInput' }
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/BenchmarkResult' }
+        '404': { $ref: '#/components/responses/Error' }
+
+components:
+  securitySchemes:
+    oauth2ClientCredentials:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth.dqnexus.io/oauth/token
+          scopes:
+            diagnosticos:read: Leer diagnósticos y resultados
+            diagnosticos:write: Crear y calcular diagnósticos
+            normativa:read: Leer el feed de vigilancia normativa
+            kb:read: Leer la base de conocimiento
+            market:read: Leer el feed de vigilancia de mercado
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-API-Key
+
+  parameters:
+    OrganizacionId:
+      name: organizacionId
+      in: path
+      required: true
+      schema: { type: string, format: uuid }
+    DiagnosticoId:
+      name: diagnosticoId
+      in: path
+      required: true
+      schema: { type: string, format: uuid }
+    IdempotencyKey:
+      name: Idempotency-Key
+      in: header
+      required: false
+      schema: { type: string }
+      description: Clave para evitar creaciones duplicadas ante reintentos.
+    Cursor:
+      name: cursor
+      in: query
+      schema: { type: string }
+    Limit:
+      name: limit
+      in: query
+      schema: { type: integer, default: 50, maximum: 200 }
+
+  responses:
+    Error:
+      description: Error
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+
+  schemas:
+    KbBundle:
+      type: object
+      properties:
+        kb_version: { type: string }
+        total_preguntas: { type: integer }
+        modelo_madurez: { type: object, additionalProperties: true }
+        modulos:
+          type: array
+          items:
+            type: object
+            properties:
+              id: { type: string }
+              nombre: { type: string }
+              weight: { type: number }
+              preguntas: { type: array, items: { type: object, additionalProperties: true } }
+    MarketSignal:
+      type: object
+      properties:
+        id: { type: string }
+        tipo: { type: string }
+        titulo: { type: string }
+        fecha: { type: string }
+        impacto: { type: string, enum: [alto, medio, bajo] }
+        fuente: { type: string }
+        resumen: { type: string }
+    BenchmarkInput:
+      type: object
+      required: [nivel_tecnologico]
+      properties:
+        nivel_tecnologico: { type: integer, minimum: 1, maximum: 5 }
+    BenchmarkResult:
+      type: object
+      properties:
+        nivel_empresa: { type: integer }
+        promedio_mercado: { type: number }
+        rango_mercado: { type: array, items: { type: integer } }
+        herramientas_por_encima: { type: integer }
+        brecha_al_lider: { type: integer }
+        recomendacion: { type: string }
+    OrganizacionInput:
+      type: object
+      required: [nombre, sector, tamano]
+      properties:
+        nombre: { type: string }
+        nit: { type: string }
+        sector: { type: string }
+        tamano:
+          type: string
+          enum: [micro, pequena, mediana, grande]
+        aplicabilidad:
+          $ref: '#/components/schemas/Aplicabilidad'
+    Organizacion:
+      allOf:
+        - $ref: '#/components/schemas/OrganizacionInput'
+        - type: object
+          properties:
+            id: { type: string, format: uuid }
+            tenant_id: { type: string, format: uuid }
+            creado_en: { type: string, format: date-time }
+    Aplicabilidad:
+      type: object
+      description: Resuelve qué skills y preguntas se activan.
+      properties:
+        permisos_ambientales: { type: boolean }
+        saglaft_sarlaft: { type: boolean }
+        emisor_valores: { type: boolean }
+        vigilada_supersociedades: { type: boolean }
+
+    DiagnosticoInput:
+      type: object
+      required: [organizacion_id]
+      properties:
+        organizacion_id: { type: string, format: uuid }
+        modo:
+          type: string
+          enum: [completo, rapido]
+          default: completo
+        exigir_completitud:
+          type: boolean
+          default: false
+          description: Si es true, /calcular falla con 409 cuando el diagnóstico no está completo.
+    Diagnostico:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        organizacion_id: { type: string, format: uuid }
+        estado:
+          type: string
+          enum: [en_progreso, calculado, archivado]
+        modo: { type: string, enum: [completo, rapido] }
+        kb_version: { type: string }
+        progreso_pct: { type: number }
+        creado_en: { type: string, format: date-time }
+        completado_en: { type: string, format: date-time, nullable: true }
+
+    RespuestaInput:
+      type: object
+      required: [pregunta_id, valor]
+      properties:
+        pregunta_id: { type: string, example: sst1 }
+        valor:
+          description: booleano para si_no; entero 1-5 para escala; "no_aplica" o "sin_dato".
+          oneOf:
+            - { type: boolean }
+            - { type: integer, minimum: 1, maximum: 5 }
+            - { type: string, enum: [no_aplica, sin_dato] }
+        evidencia:
+          $ref: '#/components/schemas/EvidenciaInput'
+    EvidenciaInput:
+      type: object
+      properties:
+        tipo: { type: string, enum: [url, archivo, nota] }
+        uri: { type: string }
+        hash: { type: string }
+
+    ResultadoDiagnostico:
+      type: object
+      properties:
+        diagnostico_id: { type: string, format: uuid }
+        kb_version: { type: string }
+        score_sgi: { type: number }
+        nivel_sgi: { type: integer, minimum: 1, maximum: 5 }
+        nivel_sgi_nombre:
+          type: string
+          enum: [Inicial, Basico, Gestionado, Optimizado, Excelencia]
+        cumplimiento_global_pct: { type: number }
+        madurez_global_1a5: { type: number }
+        pilares:
+          type: array
+          items: { $ref: '#/components/schemas/ResultadoPilar' }
+        descargo:
+          type: string
+          default: Resultado orientativo. No sustituye auditoría formal ni concepto legal.
+    ResultadoPilar:
+      type: object
+      properties:
+        skill_id:
+          type: string
+          enum: [sst, calidad, ambiental, cumplimiento, riesgos, gobierno]
+        score: { type: number }
+        nivel: { type: integer, minimum: 1, maximum: 5 }
+        cumplimiento_pct: { type: number, nullable: true }
+        madurez_promedio: { type: number, nullable: true }
+        hallazgos:
+          type: array
+          items: { type: string }
+
+    Recomendacion:
+      type: object
+      properties:
+        skill_id: { type: string }
+        prioridad: { type: string, enum: [alta, media, baja] }
+        score: { type: number }
+        diagnostico: { type: string }
+        acciones:
+          type: array
+          items: { type: string }
+        norma_refs:
+          type: array
+          items: { type: string }
+
+    RutaAprendizaje:
+      type: object
+      properties:
+        skill_id: { type: string }
+        brecha: { type: string }
+        recurso_url: { type: string, format: uri }
+        origen: { type: string, enum: [interno, externo] }
+
+    NormativaEntry:
+      type: object
+      properties:
+        id: { type: string }
+        modulo_sgi: { type: string }
+        fuente: { type: string }
+        tipo: { type: string, enum: [ley, decreto, resolucion, circular, guia_tecnica, manual_auditoria, norma_iso, marco] }
+        titulo: { type: string }
+        fecha: { type: string }
+        url: { type: string, format: uri }
+        estado: { type: string, enum: [vigente, nuevo, modifica, derogado] }
+        relevancia: { type: string, enum: [alta, media, baja] }
+
+    KbVersion:
+      type: object
+      properties:
+        version: { type: string }
+        publicado_en: { type: string, format: date-time }
+        checksum: { type: string }
+
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code: { type: string, example: validation_error }
+            message: { type: string }
+            details:
+              type: array
+              items: { type: string }
+
+webhooks:
+  diagnosticoCalculado:
+    post:
+      summary: Se emite cuando un diagnóstico termina de calcularse
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                evento: { type: string, example: diagnostico.calculado }
+                data: { $ref: '#/components/schemas/ResultadoDiagnostico' }
+      responses:
+        '200': { description: Recibido }
+  normativaNueva:
+    post:
+      summary: Se emite cuando la vigilancia detecta normativa nueva o modificada con relevancia alta
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                evento: { type: string, example: normativa.nueva }
+                data: { $ref: '#/components/schemas/NormativaEntry' }
+      responses:
+        '200': { description: Recibido }

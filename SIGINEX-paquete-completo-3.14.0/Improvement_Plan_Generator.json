@@ -1,0 +1,87 @@
+{
+  "skill": {
+    "name": "Improvement_Plan_Generator",
+    "version": "1.0.1",
+    "pais": "Colombia",
+    "objetivo": "Convertir los resultados del diagnóstico (brechas y recomendaciones) en un plan de mejoramiento accionable: tareas con responsable, prioridad, plazo, esfuerzo, evidencia esperada y criterio de cierre, organizadas por fases.",
+    "entrada": "respuestas 0/1/2 + recomendacion[] por pregunta (de SGI_Diagnostic_Skills)",
+    "salida": "plan_mejora = tarea[] + resumen por fase + KPIs",
+    "descargo": "Plan orientativo. Responsables y plazos son sugerencias; ajustar a la estructura y realidad de cada organización."
+  },
+
+  "regla_generacion": {
+    "seleccion": "Genera una tarea por cada pregunta con evaluación < 2 (0 = No cumple, 1 = Parcial). Excluye 'no aplica'.",
+    "orden": "Prioriza por brecha ponderada = (2 - evaluacion) * peso * weight_modulo, de mayor a menor.",
+    "accion": "Usa recomendacion[evaluacion] como acción base de la tarea."
+  },
+
+  "prioridad": {
+    "logica": "evaluacion 0 => Alta; evaluacion 1 => Media. Elevar a Alta si la norma es de obligación legal (Ley/Decreto/Resolución) aunque sea parcial.",
+    "niveles": ["Alta", "Media", "Baja"]
+  },
+
+  "plazos_sugeridos_dias": { "Alta": 30, "Media": 90, "Baja": 180 },
+
+  "fases": [
+    { "id": 1, "nombre": "Estabilización (0–30 días)", "incluye": "prioridad Alta", "foco": "Cerrar brechas legales y de mayor riesgo." },
+    { "id": 2, "nombre": "Consolidación (31–90 días)", "incluye": "prioridad Media", "foco": "Formalizar y evidenciar lo parcialmente cumplido." },
+    { "id": 3, "nombre": "Optimización (91–180 días)", "incluye": "prioridad Baja / mejora", "foco": "Medición, integración y mejora continua." }
+  ],
+
+  "responsable_por_modulo": {
+    "sst": "Responsable del SG-SST",
+    "ambiental": "Coordinador Ambiental / HSEQ",
+    "calidad": "Líder de Calidad",
+    "riesgos": "Oficial de Riesgos / Continuidad",
+    "cumplimiento": "Oficial de Cumplimiento",
+    "datos": "Oficial de Protección de Datos / Seguridad de la Información",
+    "gobierno": "Secretaría General / Gobierno Corporativo"
+  },
+
+  "esfuerzo_heuristica": {
+    "descripcion": "Estimación gruesa del esfuerzo por tipo de acción.",
+    "reglas": [
+      { "cuando": "acción de tramitar permiso/registro o implementar sistema", "esfuerzo": "Alto" },
+      { "cuando": "acción de documentar/definir política o procedimiento", "esfuerzo": "Medio" },
+      { "cuando": "acción de medir, evidenciar o actualizar", "esfuerzo": "Bajo" }
+    ],
+    "default": "Medio"
+  },
+
+  "criterio_cierre": "Evidencia verificable del requisito disponible, vigente y trazable (documento, registro o indicador).",
+
+  "tarea_schema": {
+    "id": "string",
+    "diagnostico_id": "uuid",
+    "skill_id": "string (módulo)",
+    "pregunta_id": "string",
+    "brecha": "string (pregunta no cumplida)",
+    "accion": "string (recomendación)",
+    "norma_ref": "string",
+    "prioridad": "Alta|Media|Baja",
+    "responsable": "string (rol sugerido)",
+    "plazo_dias": "integer",
+    "fecha_limite": "date (creado_en + plazo_dias)",
+    "esfuerzo": "Alto|Medio|Bajo",
+    "fase": "1|2|3",
+    "criterio_cierre": "string",
+    "estado": "pendiente|en_progreso|cerrada|vencida"
+  },
+
+  "resumen_y_kpis": {
+    "por_fase": "conteo de tareas y % de avance por fase",
+    "por_modulo": "conteo de tareas y prioridad dominante por módulo",
+    "kpis": [
+      "% de tareas cerradas por fase",
+      "reducción de brechas (ítems en 0) respecto al diagnóstico previo",
+      "cumplimiento de fechas límite (tareas cerradas a tiempo / total)"
+    ]
+  },
+
+  "integracion": {
+    "persistencia": "Tabla tarea_mejora (DDL 1.1.0), derivada de recomendacion.",
+    "api": "Se sirve junto a GET /diagnosticos/{id}/recomendaciones; se propone GET /diagnosticos/{id}/plan-mejora (futuro).",
+    "adopcion": "Cada tarea puede vincularse a una ruta de aprendizaje de la capa de aprendizaje de DQnexus (origen 'interno' de ruta_aprendizaje).",
+    "alertas": "El motor de alertas puede notificar tareas próximas a vencer o vencidas (severidad por prioridad)."
+  }
+}

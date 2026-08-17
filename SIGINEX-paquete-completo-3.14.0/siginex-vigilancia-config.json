@@ -1,0 +1,69 @@
+{
+  "componente": "SIGINEX · Vigilancia unificada",
+  "version": "1.0.0",
+  "fecha": "2026-07-04",
+  "descripcion": "Configuración de un scheduler único que orquesta los agentes de vigilancia (normativa y mercado) y un motor de alertas común. Desacoplado de las skills: estas producen señales; el scheduler las corre y el motor de alertas las evalúa.",
+  "descargo": "Inteligencia orientativa; validar en fuentes oficiales y con el proveedor.",
+
+  "scheduler": {
+    "runtime_sugerido": ["cron", "n8n", "Airflow", "GitHub Actions (schedule)"],
+    "zona_horaria": "America/Bogota",
+    "jobs": [
+      {
+        "id": "vigilancia_normativa_diaria",
+        "skill": "Normative_Watch (agente-vigilancia-normativa)",
+        "cron": "0 6 * * *",
+        "descripcion": "Rastreo diario de fuentes normativas; produce delta clasificado.",
+        "salida": "normativa_entry[]",
+        "reintentos": 3,
+        "timeout_min": 20
+      },
+      {
+        "id": "vigilancia_mercado_semanal",
+        "skill": "Benchmark_Market_Watch",
+        "cron": "0 7 * * 1",
+        "descripcion": "Rastreo semanal de herramientas, analistas y directorios; produce señales de mercado.",
+        "salida": "market_signal[]",
+        "reintentos": 3,
+        "timeout_min": 30
+      },
+      {
+        "id": "consolidacion_alertas",
+        "skill": "Motor de alertas (interno)",
+        "cron": "30 7 * * *",
+        "descripcion": "Evalúa las señales nuevas contra las reglas y emite/despacha alertas.",
+        "salida": "alerta[]",
+        "depende_de": ["vigilancia_normativa_diaria", "vigilancia_mercado_semanal"]
+      }
+    ],
+    "idempotencia": "Cada corrida deduplica por id de señal; solo procesa señales con ingerido_en > última_corrida.",
+    "observabilidad": "Registrar inicio/fin, conteo de señales y errores en evento_auditoria."
+  },
+
+  "motor_alertas": {
+    "descripcion": "Evalúa cada señal nueva y decide si genera alerta, con qué severidad y a qué canal.",
+    "severidades": ["critica", "alta", "media", "informativa"],
+    "reglas": [
+      {"id": "norma-nueva-relevante", "cuando": "tipo=normativa y estado in [nuevo, modifica] y relevancia=alta", "severidad": "alta", "accion": "alerta + marcar módulo del SGI afectado"},
+      {"id": "norma-plazo", "cuando": "tipo=normativa y contiene fecha_limite <= hoy+30d", "severidad": "critica", "accion": "alerta con cuenta regresiva al responsable"},
+      {"id": "norma-derogada", "cuando": "tipo=normativa y estado=derogado", "severidad": "media", "accion": "alerta + revisar preguntas del banco ancladas a esa norma"},
+      {"id": "mercado-impacto-alto", "cuando": "tipo=mercado y impacto=alto", "severidad": "alta", "accion": "alerta a producto/estrategia (DQnexus)"},
+      {"id": "mercado-cambio-nivel", "cuando": "tipo=mercado y cambio_nivel de una herramienta del benchmark", "severidad": "alta", "accion": "proponer actualización de Benchmark_SGI_Tools (versión++)"},
+      {"id": "mercado-nuevo-entrante", "cuando": "tipo=mercado y competidor_emergente en nivel 4-5", "severidad": "media", "accion": "alerta + evaluar incorporación al benchmark"},
+      {"id": "norma-nueva-certificacion", "cuando": "tipo=normativa y norma_certificacion (p. ej. ISO 42001)", "severidad": "media", "accion": "evaluar nuevo módulo/skill en el SGI"}
+    ],
+    "canales": [
+      {"tipo": "webhook", "evento": "normativa.nueva", "destino": "DQnexus"},
+      {"tipo": "webhook", "evento": "mercado.senal", "destino": "DQnexus"},
+      {"tipo": "email", "cuando": "severidad in [critica, alta]", "destino": "responsable_cumplimiento"},
+      {"tipo": "registro", "destino": "tabla alerta / evento_auditoria"}
+    ],
+    "anti_ruido": "Agrupar señales similares en 24h; no repetir una alerta ya despachada (dedupe por id)."
+  },
+
+  "integracion": {
+    "persistencia": "normativa_entry y market_signal (DDL v1.0.0); tabla alerta recomendada (pendiente en DDL 1.1.0).",
+    "versionado": "Un cambio de nivel/entrante confirmado incrementa Benchmark_SGI_Tools; una norma nueva relevante puede incrementar la KB. Registrar en CHANGELOG.",
+    "api": "Las señales se exponen por GET /normativa y GET /market-signals (OpenAPI 1.1.0)."
+  }
+}

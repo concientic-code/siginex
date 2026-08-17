@@ -1,0 +1,339 @@
+{
+ "skill": {
+  "name": "Benchmark_SGI_Tools",
+  "version": "1.0",
+  "pais_alcance": "Colombia y LATAM",
+  "objetivo": "Permitir que el agente compare el nivel de madurez tecnológica de una empresa frente a herramientas del mercado de SGI/HSEQ/ESG/compliance.",
+  "fecha_analisis": "2026-07",
+  "descargo": "Análisis orientativo basado en información pública a julio de 2026; las capacidades de cada herramienta evolucionan. Verificar con el proveedor."
+ },
+ "modelo_benchmark": {
+  "niveles": [
+   {
+    "n": 1,
+    "nombre": "Manual",
+    "descripcion": "Gestión en papel y hojas de cálculo; sin sistema centralizado.",
+    "senales": [
+     "Excel y Word dispersos",
+     "Sin trazabilidad",
+     "Reactivo ante auditorías"
+    ]
+   },
+   {
+    "n": 2,
+    "nombre": "Digital básico",
+    "descripcion": "Documentos digitales y software puntual por área, sin integración.",
+    "senales": [
+     "Software por silo",
+     "Repositorios digitales",
+     "Reportes manuales"
+    ]
+   },
+   {
+    "n": 3,
+    "nombre": "Integrado",
+    "descripcion": "Plataforma que integra varios sistemas de gestión (multinorma) con documentación y flujos comunes.",
+    "senales": [
+     "Módulos integrados",
+     "Control documental",
+     "Indicadores centralizados"
+    ]
+   },
+   {
+    "n": 4,
+    "nombre": "Automatizado",
+    "descripcion": "Flujos de trabajo, alertas e indicadores automatizados, con analítica y tableros.",
+    "senales": [
+     "Workflows y alertas",
+     "Auditoría automatizada",
+     "Cuadros de mando en tiempo real"
+    ]
+   },
+   {
+    "n": 5,
+    "nombre": "Inteligente (IA)",
+    "descripcion": "IA para predicción, priorización, generación documental y vigilancia normativa.",
+    "senales": [
+     "Agentes/IA",
+     "Recomendaciones automáticas",
+     "Vigilancia y predicción"
+    ]
+   }
+  ],
+  "dimensiones": [
+   "Cobertura del SGI (multinorma)",
+   "Automatización de flujos",
+   "Inteligencia artificial",
+   "Integración con otros sistemas",
+   "Analítica y reporte",
+   "Cumplimiento normativo Colombia",
+   "ESG/Sostenibilidad",
+   "Seguridad de la información",
+   "Tipo de empresa objetivo"
+  ]
+ },
+ "herramientas": [
+  {
+   "id": "heinsohn",
+   "nombre": "Heinsohn SST",
+   "origen": "Colombia",
+   "tipo": "Suite de gestión humana con SG-SST",
+   "funcionalidades": [
+    "SG-SST 100% web/cloud",
+    "Gestión de comités (COPASST, convivencia, brigadas, vial)",
+    "Matriz de peligros GTC 45",
+    "Indicadores de ley y ciclo PHVA",
+    "Auditorías interna/externa",
+    "Hoja de vida SST de empleados y contratistas",
+    "Integración con nómina y talento humano"
+   ],
+   "modulos": [
+    "SG-SST",
+    "Nómina",
+    "Talento humano",
+    "Contratación",
+    "Ausentismo"
+   ],
+   "nivel": 3,
+   "ia": true,
+   "cobertura": "SG-SST + talento humano/nómina",
+   "tipo_empresa": "Medianas, grandes y sector público (enfoque RRHH)",
+   "url": "https://www.heinsohn.co/co/gestion-humana-y-nomina/software-sst/",
+   "confianza": "alta"
+  },
+  {
+   "id": "mejoramiso",
+   "nombre": "Mejoramiso (IMPROSOFT S.A.S.)",
+   "origen": "Colombia",
+   "tipo": "Software de SGI multinorma / mejoramiento continuo",
+   "funcionalidades": [
+    "15+ módulos integrados",
+    "Cuadros de mando BSC (contexto estratégico)",
+    "Gestión del riesgo",
+    "Acciones correctivas/preventivas/mejora",
+    "Control de documentos y auditorías",
+    "Indicadores y tableros en tiempo real",
+    "Nube o local"
+   ],
+   "modulos": [
+    "Calidad (ISO 9001)",
+    "SG-SST (ISO 45001)",
+    "Ambiental (ISO 14001)",
+    "SGSI (ISO 27001)",
+    "Riesgos (ISO 31000)",
+    "MIPG",
+    "PQRS",
+    "Auditorías",
+    "Indicadores",
+    "Mejoramiento"
+   ],
+   "nivel": 3,
+   "ia": false,
+   "cobertura": "SGI multinorma (ISO 9001/14001/27001/31000/45001, MIPG)",
+   "tipo_empresa": "Empresas que sostienen SGI multinorma",
+   "url": "https://web.mejoramiso.com/",
+   "confianza": "alta"
+  },
+  {
+   "id": "sgi_sas",
+   "nombre": "SGI Sistemas de Gestión Integral",
+   "origen": "Colombia",
+   "tipo": "Consultoría y servicios SGI/SST",
+   "funcionalidades": [
+    "Diseño, implementación y mantenimiento del SG-SST",
+    "Seguridad industrial",
+    "Gestión ambiental (PGIRS, PUEAA, SGA)",
+    "Planes semestrales/anuales"
+   ],
+   "modulos": [
+    "SG-SST",
+    "Seguridad industrial",
+    "Ambiental"
+   ],
+   "nivel": 2,
+   "ia": false,
+   "cobertura": "SG-SST, seguridad industrial y ambiental (servicios)",
+   "tipo_empresa": "Pymes",
+   "url": "https://www.sgicol.com/",
+   "confianza": "media-baja (información pública limitada)"
+  },
+  {
+   "id": "seycoc",
+   "nombre": "SEYCOC",
+   "origen": "Colombia",
+   "tipo": "Proveedor SST/HSEQ",
+   "funcionalidades": [
+    "Gestión del SG-SST",
+    "Apoyo HSEQ",
+    "Cumplimiento normativo colombiano"
+   ],
+   "modulos": [
+    "SG-SST",
+    "HSEQ"
+   ],
+   "nivel": 2,
+   "ia": false,
+   "cobertura": "SST/HSEQ",
+   "tipo_empresa": "Pymes",
+   "url": "",
+   "confianza": "baja (documentación pública escasa; verificar directamente)"
+  },
+  {
+   "id": "isotools",
+   "nombre": "ISOTools (ESG Innova Group)",
+   "origen": "España / LATAM",
+   "tipo": "Plataforma de gestión ISO/GRC",
+   "funcionalidades": [
+    "Automatización de sistemas ISO",
+    "Gestión documental y flujos",
+    "GRC (gobierno, riesgo, cumplimiento)",
+    "Balanced Scorecard",
+    "Móvil e integración por WebServices",
+    "Presencia en 15+ países"
+   ],
+   "modulos": [
+    "ISO 9001",
+    "ISO 14001",
+    "ISO 45001",
+    "ISO 27001",
+    "Riesgos",
+    "BSC",
+    "Procesos"
+   ],
+   "nivel": 4,
+   "ia": false,
+   "cobertura": "ISO 9001/14001/45001/27001 + GRC/BSC",
+   "tipo_empresa": "Medianas y grandes (multisector)",
+   "url": "https://isotools.org/",
+   "confianza": "alta"
+  },
+  {
+   "id": "softexpert",
+   "nombre": "SoftExpert",
+   "origen": "Brasil / LATAM",
+   "tipo": "Suite EQMS/GRC/EHSM",
+   "funcionalidades": [
+    "EQMS completo (CAPA, no conformidades, KPIs)",
+    "GRC con riesgos e IA",
+    "EHSM (medio ambiente, salud y seguridad)",
+    "Automatización de auditorías",
+    "Cuadros de mando configurables",
+    "Mapeo de procesos"
+   ],
+   "modulos": [
+    "Calidad (EQM)",
+    "GRC",
+    "EHSM",
+    "Documentos",
+    "Procesos",
+    "Riesgos",
+    "Auditoría"
+   ],
+   "nivel": 4,
+   "ia": true,
+   "cobertura": "EQMS/GRC/EHSM (suite modular)",
+   "tipo_empresa": "Medianas y grandes",
+   "url": "https://www.softexpert.com/",
+   "confianza": "alta"
+  },
+  {
+   "id": "hackmetrix",
+   "nombre": "Hackmetrix",
+   "origen": "Chile / LATAM",
+   "tipo": "Compliance de seguridad potenciado por IA",
+   "funcionalidades": [
+    "Certificación ISO 27001 y PCI DSS acelerada",
+    "Agentes de IA que ejecutan la operación",
+    "Generación automática de políticas y evidencias",
+    "Preparación de auditorías",
+    "Monitoreo de superficie de ataque"
+   ],
+   "modulos": [
+    "ISO 27001",
+    "PCI DSS",
+    "Gestión de evidencias",
+    "Controles",
+    "Vulnerabilidades"
+   ],
+   "nivel": 5,
+   "ia": true,
+   "cobertura": "Compliance de seguridad de la información (ISO 27001, PCI DSS)",
+   "tipo_empresa": "Pymes y startups LATAM",
+   "url": "https://www.hackmetrix.com/",
+   "confianza": "alta"
+  },
+  {
+   "id": "sphera",
+   "nombre": "Sphera",
+   "origen": "Global",
+   "tipo": "EHS, riesgo operacional y sostenibilidad",
+   "funcionalidades": [
+    "EHS y riesgo operacional",
+    "Product stewardship y ACV (LCA)",
+    "Sostenibilidad y emisiones",
+    "Cobertura regulatoria de alto riesgo"
+   ],
+   "modulos": [
+    "EHS",
+    "Riesgo operacional",
+    "Product stewardship",
+    "Sostenibilidad/ESG"
+   ],
+   "nivel": 4,
+   "ia": true,
+   "cobertura": "EHS, riesgo operacional, sostenibilidad (industria pesada)",
+   "tipo_empresa": "Grandes (energía, química, manufactura)",
+   "url": "https://www.sphera.com/",
+   "confianza": "alta"
+  },
+  {
+   "id": "enablon",
+   "nombre": "Enablon (Wolters Kluwer)",
+   "origen": "Global",
+   "tipo": "Plataforma integrada EHS/ESG/GRC",
+   "funcionalidades": [
+    "EHS, ESG, gobierno y riesgo operacional en una sola plataforma",
+    "Integración con SAP/Oracle/Azure",
+    "Reporte ESG verificable (líder Verdantix)",
+    "Monitoreo de cumplimiento en tiempo real",
+    "IA y riesgo integrado"
+   ],
+   "modulos": [
+    "EHS",
+    "ESG/Sostenibilidad",
+    "GRC",
+    "Riesgo operacional",
+    "Control of Work",
+    "Reporte regulatorio"
+   ],
+   "nivel": 5,
+   "ia": true,
+   "cobertura": "EHS/ESG/GRC + riesgo integrado (enterprise)",
+   "tipo_empresa": "Grandes multinacionales / operaciones complejas",
+   "url": "https://www.wolterskluwer.com/en/solutions/enablon",
+   "confianza": "alta"
+  }
+ ],
+ "modelo_scoring_competitivo": {
+  "nivel_empresa": "1-5 declarado o inferido de la madurez del SGI",
+  "promedio_mercado": "media de los niveles de las herramientas analizadas",
+  "brecha_al_lider": "nivel_max_mercado - nivel_empresa",
+  "posicion": "# de herramientas por encima del nivel de la empresa / total",
+  "interpretacion": "Si nivel_empresa >= promedio_mercado => competitivo; si < => oportunidad de avanzar."
+ },
+ "recomendaciones_tecnologicas": {
+  "por_nivel": {
+   "1": "Digitalice el SGI: pase de papel y Excel a una plataforma. En Colombia, plataformas integradas como Mejoramiso o Heinsohn; para ISO multinorma, ISOTools. Priorice primero SG-SST por su obligación legal.",
+   "2": "Consolide en una sola plataforma integrada (nivel 3) y elimine los silos por área. Evalúe Mejoramiso o ISOTools para multinorma y Heinsohn para un SG-SST robusto.",
+   "3": "Automatice flujos, alertas de vencimientos e indicadores (nivel 4): SoftExpert o ISOTools avanzado; Sphera si es industria pesada. Incorpore analítica y tableros en tiempo real.",
+   "4": "Incorpore inteligencia (nivel 5): IA para vigilancia normativa, priorización de brechas y recomendaciones. Enablon a escala enterprise, Hackmetrix para compliance de seguridad, o una capa de IA propia tipo SIGINEX/DQnexus sobre sus datos del SGI.",
+   "5": "Manténgase a la vanguardia: orqueste IA sobre los datos del SGI para predicción de riesgos, benchmarking automático y decisiones. Una capa de inteligencia como SIGINEX/DQnexus articula diagnóstico, aprendizaje y decisión en un mismo ecosistema."
+  },
+  "logica": "Recomendar el salto al siguiente nivel priorizando obligación legal (SG-SST) y el foco sectorial; herramientas colombianas integradas para nivel 2-3, suites automatizadas para 3-4, y capa de IA (incl. SIGINEX/DQnexus) para 4-5."
+ },
+ "salidas": [
+  "matriz_comparativa (herramientas x dimensiones/nivel)",
+  "scoring_competitivo (empresa vs mercado)",
+  "recomendaciones_tecnologicas (por nivel)"
+ ]
+}

@@ -1,0 +1,64 @@
+{
+  "skill": {
+    "name": "Adoption_Layer",
+    "version": "1.0.0",
+    "pais": "Colombia",
+    "objetivo": "Convertir cada brecha del diagnóstico (y cada tarea del plan de mejoramiento) en una ruta de aprendizaje de la capa de aprendizaje de DQnexus, para cerrar la brecha desarrollando capacidades reales.",
+    "origen_rutas": "interno",
+    "entrada": "respuestas 0/1/2 + tareas del Improvement_Plan_Generator",
+    "salida": "plan_de_aprendizaje = rutas[] priorizadas y agrupadas por competencia",
+    "descargo": "Rutas orientativas de la capa de aprendizaje de DQnexus; el catálogo y las duraciones se ajustan al contenido disponible."
+  },
+
+  "regla_mapeo": {
+    "seleccion": "Para cada pregunta con evaluación < 2 (o tarea abierta), se identifica la competencia asociada según el módulo y las palabras clave del requisito.",
+    "nivel": "evaluación 0 => Nivel básico (fundamentos); evaluación 1 => Nivel intermedio (formalización y mejora).",
+    "priorizacion": "Se prioriza por brecha (0 antes que 1) y por número de tareas que la ruta cubre.",
+    "deduplicacion": "Las brechas que comparten competencia se agrupan en una sola ruta, indicando cuántas brechas aborda."
+  },
+
+  "catalogo": {
+    "sst": [
+      {"competencia": "Fundamentos del SG-SST", "formato": "Curso", "duracion": "4 h", "recurso": "/aprendizaje/sst-fundamentos", "triggers": []},
+      {"competencia": "Identificación de peligros y valoración de riesgos (IPER)", "formato": "Taller", "duracion": "6 h", "recurso": "/aprendizaje/sst-iper", "triggers": ["peligro", "iper", "riesgo"]},
+      {"competencia": "Investigación de incidentes e indicadores de SST", "formato": "Microlearning", "duracion": "1 h", "recurso": "/aprendizaje/sst-incidentes", "triggers": ["incidente", "accidente", "indicador"]}
+    ],
+    "ambiental": [
+      {"competencia": "Gestión ambiental ISO 14001", "formato": "Curso", "duracion": "4 h", "recurso": "/aprendizaje/amb-iso14001", "triggers": []},
+      {"competencia": "Cumplimiento legal ambiental y permisos", "formato": "Guía", "duracion": "1 h", "recurso": "/aprendizaje/amb-legal", "triggers": ["permiso", "licencia", "legal", "631", "vertimiento"]},
+      {"competencia": "Gestión de residuos y uso eficiente de recursos", "formato": "Microlearning", "duracion": "45 min", "recurso": "/aprendizaje/amb-residuos", "triggers": ["residuo", "respel", "agua", "energía"]}
+    ],
+    "calidad": [
+      {"competencia": "Sistema de gestión de calidad ISO 9001", "formato": "Curso", "duracion": "4 h", "recurso": "/aprendizaje/cal-iso9001", "triggers": []},
+      {"competencia": "Enfoque a procesos e indicadores", "formato": "Taller", "duracion": "4 h", "recurso": "/aprendizaje/cal-procesos", "triggers": ["proceso", "indicador", "satisfacción"]},
+      {"competencia": "Auditoría interna y mejora continua", "formato": "Microlearning", "duracion": "1 h", "recurso": "/aprendizaje/cal-auditoria", "triggers": ["auditoría", "no conformidad", "mejora", "revisión"]}
+    ],
+    "riesgos": [
+      {"competencia": "Gestión de riesgos ISO 31000", "formato": "Curso", "duracion": "4 h", "recurso": "/aprendizaje/rie-iso31000", "triggers": []},
+      {"competencia": "Continuidad del negocio ISO 22301", "formato": "Taller", "duracion": "6 h", "recurso": "/aprendizaje/rie-continuidad", "triggers": ["continuidad", "22301", "bia"]},
+      {"competencia": "Prevención LA/FT (SAGRLAFT/SARLAFT)", "formato": "Curso", "duracion": "3 h", "recurso": "/aprendizaje/rie-laft", "triggers": ["saglaft", "sarlaft", "la/ft", "lavado", "supersociedades"]}
+    ],
+    "cumplimiento": [
+      {"competencia": "Cumplimiento legal y matriz de requisitos", "formato": "Curso", "duracion": "3 h", "recurso": "/aprendizaje/cum-matriz", "triggers": []},
+      {"competencia": "Programa de Transparencia y Ética Empresarial (PTEE)", "formato": "Taller", "duracion": "6 h", "recurso": "/aprendizaje/cum-ptee", "triggers": ["ptee", "transparencia", "2195"]},
+      {"competencia": "Anticorrupción y debida diligencia", "formato": "Microlearning", "duracion": "1 h", "recurso": "/aprendizaje/cum-anticorrupcion", "triggers": ["anticorrup", "1474", "debida diligencia"]}
+    ],
+    "datos": [
+      {"competencia": "Protección de datos personales (Ley 1581)", "formato": "Curso", "duracion": "3 h", "recurso": "/aprendizaje/dat-1581", "triggers": ["1581", "dato", "rnbd", "titular", "autoriz"]},
+      {"competencia": "Seguridad de la información ISO 27001", "formato": "Taller", "duracion": "6 h", "recurso": "/aprendizaje/dat-27001", "triggers": ["27001", "seguridad", "control", "acceso"]},
+      {"competencia": "Gestión de incidentes de seguridad", "formato": "Microlearning", "duracion": "45 min", "recurso": "/aprendizaje/dat-incidentes", "triggers": ["incidente"]}
+    ],
+    "gobierno": [
+      {"competencia": "Gobierno corporativo y ética", "formato": "Curso", "duracion": "3 h", "recurso": "/aprendizaje/gob-fundamentos", "triggers": []},
+      {"competencia": "Antisoborno ISO 37001", "formato": "Taller", "duracion": "4 h", "recurso": "/aprendizaje/gob-antisoborno", "triggers": ["soborno", "37001", "regalo", "conflicto"]},
+      {"competencia": "Control interno y rendición de cuentas", "formato": "Microlearning", "duracion": "1 h", "recurso": "/aprendizaje/gob-control", "triggers": ["control interno", "coso", "transparencia", "rendición", "1712"]}
+    ]
+  },
+
+  "integracion": {
+    "persistencia": "Tabla ruta_aprendizaje (DDL 1.1.1), con origen 'interno'; cada tarea_mejora puede enlazar una ruta (ruta_aprendizaje_id).",
+    "api": "GET /diagnosticos/{id}/rutas-aprendizaje (OpenAPI 1.1.2).",
+    "artefacto": "El artefacto muestra el 'Plan de aprendizaje (adopción)' derivado de las brechas y lo exporta a Excel.",
+    "cierre_del_ciclo": "Diagnóstico → brechas → tareas (responsable/plazo) → rutas de aprendizaje internas. Es la articulación aprendizaje–producto–decisión de DQnexus."
+  }
+}

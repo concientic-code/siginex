@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 792" font-family="Inter, Segoe UI, sans-serif">
+<style>
+.band{fill:#F4F6F9;stroke:#E5EAF1;stroke-width:1}
+.pl{font-weight:600;font-size:12.5px;fill:#0F172A}
+.node{fill:#E9F6EF;stroke:#2F8A66;stroke-width:1.2}
+.nt{font-weight:600;font-size:11px;fill:#14532D}
+.ns{font-weight:400;font-size:9px;fill:#3F6B52}
+.h1{font-weight:800;font-size:20px;fill:#0F172A}
+.sub{font-weight:400;font-size:11px;fill:#475569}
+.op{fill:#FFF7ED;stroke:#D8A657;stroke-width:1}
+.opt{font-weight:600;font-size:10px;fill:#7C4A12}
+.opb{font-weight:400;font-size:9.5px;fill:#8a6a3a}
+</style>
+<rect x="0" y="0" width="720" height="792" fill="#FFFFFF"/>
+<text class="h1" x="30" y="38">SIGINEX — Arquitectura completa · Plataforma 3.13.0</text>
+<text class="sub" x="30" y="58">9 módulos · 521 preguntas · todas las capacidades construidas (verde). Lo restante es operación, no construcción.</text>
+<rect class="band" x="20" y="76" width="680" height="96" rx="12"/>
+<text class="pl" x="34" y="98">1 · Experiencia y adopción</text>
+<rect class="node" x="30" y="114" width="200" height="46" rx="8"/>
+<text class="nt" x="130" y="134" text-anchor="middle">Artefacto · 521</text>
+<text class="ns" x="130" y="148" text-anchor="middle">9 módulos · aplicabilidad</text>
+<rect class="node" x="240" y="114" width="200" height="46" rx="8"/>
+<text class="nt" x="340" y="134" text-anchor="middle">Reporte ejecutivo</text>
+<text class="ns" x="340" y="148" text-anchor="middle">+ histórico</text>
+<rect class="node" x="450" y="114" width="200" height="46" rx="8"/>
+<text class="nt" x="550" y="134" text-anchor="middle">Adopción</text>
+<text class="ns" x="550" y="148" text-anchor="middle">rutas de aprendizaje</text>
+<rect class="band" x="20" y="180" width="680" height="96" rx="12"/>
+<text class="pl" x="34" y="202">2 · Agente (orquestación)</text>
+<rect class="node" x="30" y="218" width="200" height="46" rx="8"/>
+<text class="nt" x="130" y="238" text-anchor="middle">Orquestador</text>
+<text class="ns" x="130" y="252" text-anchor="middle">runtime · evals 8/8</text>
+<rect class="node" x="240" y="218" width="200" height="46" rx="8"/>
+<text class="nt" x="340" y="238" text-anchor="middle">Aplicabilidad</text>
+<text class="ns" x="340" y="252" text-anchor="middle">resolver en runtime</text>
+<rect class="node" x="450" y="218" width="200" height="46" rx="8"/>
+<text class="nt" x="550" y="238" text-anchor="middle">Skills ×9</text>
+<text class="ns" x="550" y="252" text-anchor="middle">+ ESG + Gobernanza IA</text>
+<rect class="band" x="20" y="284" width="680" height="96" rx="12"/>
+<text class="pl" x="34" y="306">3 · Motores</text>
+<rect class="node" x="30" y="322" width="155" height="46" rx="8"/>
+<text class="nt" x="108" y="342" text-anchor="middle">Scoring</text>
+<text class="ns" x="108" y="356" text-anchor="middle">0/1/2 · aplicab.</text>
+<rect class="node" x="197" y="322" width="155" height="46" rx="8"/>
+<text class="nt" x="274" y="342" text-anchor="middle">Recomendaciones</text>
+<text class="ns" x="274" y="356" text-anchor="middle">por brecha</text>
+<rect class="node" x="364" y="322" width="155" height="46" rx="8"/>
+<text class="nt" x="442" y="342" text-anchor="middle">Benchmark</text>
+<text class="ns" x="442" y="356" text-anchor="middle">mercado + sectorial</text>
+<rect class="node" x="531" y="322" width="155" height="46" rx="8"/>
+<text class="nt" x="608" y="342" text-anchor="middle">Plan de mejora</text>
+<text class="ns" x="608" y="356" text-anchor="middle">+ adopción</text>
+<rect class="band" x="20" y="388" width="680" height="96" rx="12"/>
+<text class="pl" x="34" y="410">4 · Conocimiento</text>
+<rect class="node" x="30" y="426" width="155" height="46" rx="8"/>
+<text class="nt" x="108" y="446" text-anchor="middle">Normativo</text>
+<text class="ns" x="108" y="460" text-anchor="middle">ISO · leyes CO</text>
+<rect class="node" x="197" y="426" width="155" height="46" rx="8"/>
+<text class="nt" x="274" y="446" text-anchor="middle">Diagnóstico</text>
+<text class="ns" x="274" y="460" text-anchor="middle">521 · madurez</text>
+<rect class="node" x="364" y="426" width="155" height="46" rx="8"/>
+<text class="nt" x="442" y="446" text-anchor="middle">Benchmark KB</text>
+<text class="ns" x="442" y="460" text-anchor="middle">9 herramientas</text>
+<rect class="node" x="531" y="426" width="155" height="46" rx="8"/>
+<text class="nt" x="608" y="446" text-anchor="middle">ESG/IA · Guías</text>
+<text class="ns" x="608" y="460" text-anchor="middle">GTC45·PTEE·MIPG</text>
+<rect class="band" x="20" y="492" width="680" height="96" rx="12"/>
+<text class="pl" x="34" y="514">5 · Vigilancia</text>
+<rect class="node" x="30" y="530" width="200" height="46" rx="8"/>
+<text class="nt" x="130" y="550" text-anchor="middle">Scheduler</text>
+<text class="ns" x="130" y="564" text-anchor="middle">único · cadencia</text>
+<rect class="node" x="240" y="530" width="200" height="46" rx="8"/>
+<text class="nt" x="340" y="550" text-anchor="middle">Motor de alertas</text>
+<text class="ns" x="340" y="564" text-anchor="middle">reglas · canales</text>
+<rect class="node" x="450" y="530" width="200" height="46" rx="8"/>
+<text class="nt" x="550" y="550" text-anchor="middle">Agentes</text>
+<text class="ns" x="550" y="564" text-anchor="middle">normativa + mercado</text>
+<rect class="band" x="20" y="596" width="680" height="96" rx="12"/>
+<text class="pl" x="34" y="618">6 · Plataforma</text>
+<rect class="node" x="30" y="634" width="124" height="46" rx="8"/>
+<text class="nt" x="92" y="654" text-anchor="middle">Persistencia</text>
+<text class="ns" x="92" y="668" text-anchor="middle">DDL 1.1.1 · RLS</text>
+<rect class="node" x="158" y="634" width="124" height="46" rx="8"/>
+<text class="nt" x="220" y="654" text-anchor="middle">API</text>
+<text class="ns" x="220" y="668" text-anchor="middle">OpenAPI 1.1.2 + server</text>
+<rect class="node" x="286" y="634" width="124" height="46" rx="8"/>
+<text class="nt" x="348" y="654" text-anchor="middle">KB /kb</text>
+<text class="ns" x="348" y="668" text-anchor="middle">hidratación · ETag</text>
+<rect class="node" x="414" y="634" width="124" height="46" rx="8"/>
+<text class="nt" x="476" y="654" text-anchor="middle">Despliegue</text>
+<text class="ns" x="476" y="668" text-anchor="middle">Docker · CI · runbook</text>
+<rect class="node" x="542" y="634" width="124" height="46" rx="8"/>
+<text class="nt" x="604" y="654" text-anchor="middle">Observabilidad</text>
+<text class="ns" x="604" y="668" text-anchor="middle">evals · métricas</text>
+<rect class="op" x="20" y="702" width="680" height="42" rx="10"/>
+<text class="opt" x="34" y="720">En operación (no construcción)</text>
+<text class="opb" x="34" y="735">Desplegar en infraestructura · acumular diagnósticos reales · instrumentar la observabilidad en producción.</text>
+</svg>
