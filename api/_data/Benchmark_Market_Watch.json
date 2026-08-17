@@ -1,0 +1,134 @@
+{
+ "skill": {
+  "name": "Benchmark_Market_Watch",
+  "version": "1.0",
+  "pais_alcance": "Colombia y LATAM",
+  "objetivo": "Mantener actualizado el benchmark de herramientas SGI/HSEQ/ESG/compliance mediante un proceso automatizado que monitorea el mercado y la competencia, detecta cambios y actualiza Benchmark_SGI_Tools.",
+  "relacion": "Alimenta y versiona Benchmark_SGI_Tools.json (herramientas y niveles).",
+  "fecha_siembra": "2026-07",
+  "descargo": "Inteligencia de mercado orientativa basada en fuentes públicas; validar con el proveedor y con analistas."
+ },
+ "prompt_agente": "ROL: Eres un agente de vigilancia competitiva del mercado de SGI/HSEQ/ESG/compliance en Colombia y LATAM. En cada ejecución rastreas las fuentes, detectas señales nuevas o cambios en las herramientas del benchmark y devuelves un delta clasificado. PROCEDIMIENTO: 1) Recorre fuentes según su cadencia. 2) Para cada herramienta del benchmark, detecta cambios en funcionalidades, módulos, IA, nivel de madurez o empresa objetivo. 3) Detecta nuevos entrantes y tendencias. 4) Clasifica cada señal (tipo, impacto alto/medio/bajo, confianza) y propón si cambia el nivel de alguna herramienta o si debe añadirse una nueva. REGLAS: cita la fuente; no inventes capacidades; paraphrasea; marca confianza; devuelve SOLO el delta. SALIDA: {ejecucion, delta:[{id,tipo,titulo,fecha,resumen,impacto,fuente,confianza,cambio_propuesto}]}.",
+ "fuentes_vigilancia": [
+  {
+   "entidad": "Sitios oficiales de las herramientas",
+   "url_rastreo": "paginas de producto/cambios de cada herramienta del benchmark",
+   "cadencia": "mensual",
+   "senal": "nuevas funcionalidades, módulos, IA, precios"
+  },
+  {
+   "entidad": "Verdantix / analistas (Green Quadrant)",
+   "url_rastreo": "https://www.verdantix.com",
+   "cadencia": "trimestral",
+   "senal": "rankings EHS/ESG/GRC y posicionamiento"
+  },
+  {
+   "entidad": "Directorios de software LATAM",
+   "url_rastreo": "https://guiatic.com · https://www.comparasoftware.co · Capterra/G2",
+   "cadencia": "mensual",
+   "senal": "nuevos entrantes, reseñas, categorías"
+  },
+  {
+   "entidad": "Informes de mercado (cloud compliance / GRC)",
+   "url_rastreo": "Global Market Insights, Future Market Report",
+   "cadencia": "trimestral",
+   "senal": "tamaño de mercado, CAGR, tendencias"
+  },
+  {
+   "entidad": "Ecosistema startup LATAM",
+   "url_rastreo": "medios de startups y venture (compliance/regtech con IA)",
+   "cadencia": "mensual",
+   "senal": "nuevos competidores emergentes con IA"
+  },
+  {
+   "entidad": "Normalización ISO",
+   "url_rastreo": "https://www.iso.org/standards.html",
+   "cadencia": "trimestral",
+   "senal": "nuevas normas certificables (p. ej. ISO 42001 IA, ISO 37001)"
+  }
+ ],
+ "taxonomia_senal": {
+  "tipo": [
+   "tendencia",
+   "competidor_emergente",
+   "cambio_funcionalidad",
+   "cambio_nivel",
+   "norma_certificacion",
+   "precio"
+  ],
+  "impacto": [
+   "alto",
+   "medio",
+   "bajo"
+  ],
+  "confianza": [
+   "alta",
+   "media",
+   "baja"
+  ]
+ },
+ "cadencia": {
+  "herramientas": "mensual",
+  "analistas": "trimestral",
+  "directorios": "mensual",
+  "informes_mercado": "trimestral",
+  "normas": "trimestral"
+ },
+ "registro_senales": [
+  {
+   "id": "sig-2026-mercado-cloud",
+   "tipo": "tendencia",
+   "titulo": "El mercado de cumplimiento en la nube se acelera",
+   "fecha": "2026-02",
+   "resumen": "El mercado global de cumplimiento en la nube pasó de ~USD 41.100 M (2025) a ~USD 49.300 M (2026), con proyección de crecimiento sostenido; entre las tendencias clave está el uso de IA para puntuación de conformidad y reducción de alertas.",
+   "impacto": "alto — valida la apuesta por scoring automatizado e IA; presión por nube y actualización en tiempo real",
+   "fuente": "Global Market Insights",
+   "confianza": "alta"
+  },
+  {
+   "id": "sig-2026-ia-nativa",
+   "tipo": "tendencia",
+   "titulo": "IA nativa en plataformas de compliance",
+   "fecha": "2026-01",
+   "resumen": "Los proveedores integran IA/ML para análisis predictivo, detección de anomalías y actualización automática de políticas, reduciendo la supervisión manual; crece la demanda de plataformas de gobernanza unificada de extremo a extremo.",
+   "impacto": "alto — el nivel 5 (Inteligente IA) se vuelve estándar competitivo, no diferencial",
+   "fuente": "Future Market Report",
+   "confianza": "alta"
+  },
+  {
+   "id": "sig-2026-iso42001",
+   "tipo": "norma_certificacion",
+   "titulo": "ISO 42001 (gestión de IA) emerge como certificación de mayor crecimiento",
+   "fecha": "2026-05",
+   "resumen": "ISO 42001 aparece como la certificación emergente con mayor crecimiento en 2026 (gobernanza de IA), junto al sostenido liderazgo de ISO 27001 y la relevancia creciente de ISO 37001 (antisoborno) en LATAM.",
+   "impacto": "medio-alto — abre un nuevo módulo potencial (Gobernanza de IA) para el SGI y el benchmark",
+   "fuente": "Impulsa360 (ranking certificaciones 2026)",
+   "confianza": "media"
+  },
+  {
+   "id": "sig-2026-regtech-latam",
+   "tipo": "competidor_emergente",
+   "titulo": "Regtech/compliance con IA gana tracción en LATAM",
+   "fecha": "2026-03",
+   "resumen": "Startups de compliance con IA aplicada (p. ej. Dapper, caleña) obtienen reconocimiento por escalar en mercados regulados; el segmento regtech con IA local se consolida como competencia emergente frente a las suites tradicionales.",
+   "impacto": "medio — nuevos entrantes ágiles pueden desplazar herramientas de nivel 2-3 en pymes",
+   "fuente": "Ecosistema Startup LATAM",
+   "confianza": "media"
+  },
+  {
+   "id": "sig-2026-nuevo-entrante-iswo",
+   "tipo": "competidor_emergente",
+   "titulo": "Nuevos entrantes colombianos con 'Software + IA' para SGI/HSEQ",
+   "fecha": "2026-06",
+   "resumen": "Aparecen proveedores colombianos que combinan software de SGI/HSEQ con IA (p. ej. SIG ISWO), ampliando la oferta local de nivel 4-5 más allá de las herramientas tradicionales.",
+   "impacto": "medio — densifica el mercado colombiano en niveles altos; vigilar de cerca",
+   "fuente": "Directorios/registros de software CO",
+   "confianza": "media"
+  }
+ ],
+ "integracion": {
+  "actualiza": "Benchmark_SGI_Tools.json (nivel/funcionalidades/nuevas herramientas)",
+  "alertas": "Emitir alerta cuando impacto=alto o cambio_nivel de una herramienta; o nuevo entrante en nivel 4-5.",
+  "versionado": "Cada cambio incrementa versión de Benchmark_SGI_Tools y conserva histórico."
+ }
+}
