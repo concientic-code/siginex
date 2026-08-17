@@ -1,0 +1,60 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/**/*.py",
+      "use": "@vercel/python"
+    },
+    {
+      "src": "public/**",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/diagnostico",
+      "dest": "/public/diagnostico.html"
+    },
+    {
+      "src": "/api/health",
+      "dest": "/api/health.py"
+    },
+    {
+      "src": "/api/kb/version",
+      "dest": "/api/kb/version.py"
+    },
+    {
+      "src": "/api/kb",
+      "dest": "/api/kb/index.py"
+    },
+    {
+      "src": "/api/market-signals",
+      "dest": "/api/market-signals.py"
+    },
+    {
+      "src": "/api/diagnosticos/([^/]+)/calcular",
+      "dest": "/api/diagnosticos/[id]/calcular.py?id=$1"
+    },
+    {
+      "src": "/api",
+      "dest": "/api/index.py"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/public/$1"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        { "key": "Access-Control-Allow-Origin", "value": "*" },
+        { "key": "Access-Control-Allow-Methods", "value": "GET, POST, OPTIONS" },
+        { "key": "Access-Control-Allow-Headers", "value": "Content-Type, X-Api-Key, X-Tenant-Id, Idempotency-Key, If-None-Match" }
+      ]
+    }
+  ],
+  "env": {
+    "SIGINEX_API_KEYS": "@siginex-api-keys"
+  }
+}

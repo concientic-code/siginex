@@ -1,0 +1,2 @@
+# Dependencias para las serverless functions de Vercel
+# El runtime de Python de Vercel instala esto automáticamente
